@@ -1,0 +1,39 @@
+# Copy this file to mmrslave.toml and edit it.
+# API keys are read from environment variables, never from this file:
+#   ANTHROPIC_API_KEY  - required for the written coaching report
+#   OPENDOTA_API_KEY   - optional, raises OpenDota rate limits
+
+[player]
+# Your 64-bit Steam ID. Found automatically from your replays if left at 0.
+steam_id = 0
+
+[paths]
+# Where downloaded replays, parsed matches and trained models are stored.
+# Pick a drive with plenty of space: each raw replay is ~100 MB (deleted after parsing),
+# each parsed match is ~1 MB.
+data_dir = "D:/MMRSlaveData"
+# Your Dota 2 replay folder (Steam library path).
+local_replays = "C:/Program Files (x86)/Steam/steamapps/common/dota 2 beta/game/dota/replays"
+# Your Dota 2 'game/dota' folder (the one with pak01_dir.vpk). The dashboard copies the real
+# minimap and hero icons from it. Leave empty to find it through Steam automatically.
+dota_dir = ""
+
+[collect]
+# Training data: high-Immortal public ranked games (All Pick, ranked lobby).
+# A match is kept when at least this many of its 10 players are Immortal rank.
+min_immortal_players = 8
+# OpenDota's per-player skill estimate ("computed_mmr", its own scale, not your
+# in-game MMR). A match is kept when its players' average is at least this.
+# 0 = off. `mmrslave stats` shows the spread of collected games to pick a cut.
+min_avg_computed_mmr = 0
+# Skip very short games (abandons, early GGs).
+min_duration_minutes = 20
+# Parallel replay parsers. Each uses ~1-2 GB of RAM.
+parse_workers = 16
+# Parallel downloads from Valve's replay servers.
+download_workers = 4
+# Seconds between OpenDota API calls (free tier: keep at 1.0 or more).
+api_delay_s = 1.1
+
+[coach]
+model = "claude-opus-5-5"

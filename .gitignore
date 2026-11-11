@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+
+# Your personal settings and API keys
+mmrslave.toml
+.env
+
+# Replays and parsed data live in data_dir (D: by default), but just in case
+*.dem
+*.dem.bz2
+*.npz
+
+# test and tool caches
+.pytest_cache/

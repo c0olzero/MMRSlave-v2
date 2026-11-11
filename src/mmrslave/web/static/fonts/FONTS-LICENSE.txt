@@ -1,0 +1,4 @@
+Oxanium (Severin Meyer), Rajdhani (Indian Type Foundry), Inter (Rasmus Andersson), JetBrains Mono (JetBrains)
+and Chakra Petch (Cadson Demak), all licensed under the SIL Open Font License 1.1 (https://openfontlicense.org).
+Latin subset woff2 files downloaded from Google Fonts (fonts.gstatic.com) on 2026-11-11.
+Vietnamese subsets (files ending in -vi) and Chakra Petch 500/600 added on 2026-11-11 from the same source.

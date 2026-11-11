@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMRSlave — Dota 2 Analytics Brand & SVG Logo Studio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for UI & Fallback Geometric Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,600;0,700;1,700&family=Cinzel:wght@700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Oxanium:wght@700&family=Rajdhani:wght@600;700&family=Teko:wght@600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        abyssal: '#0A0A0C',
+                        direslate: '#141418',
+                        direpanel: '#1B1B22',
+                        direborder: '#2A2A35',
+                        starkwhite: '#F5F5F7',
+                        ashwhite: '#D1D1D6',
+                        dire: {
+                            light: '#FF4D42',
+                            DEFAULT: '#E62E25',
+                            dark: '#9E1B15',
+                            deep: '#5C0D09'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Chakra Petch', 'sans-serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        teko: ['Teko', 'sans-serif'],
+                        oxanium: ['Oxanium', 'sans-serif'],
+                        ui: ['Rajdhani', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --active-display-font: 'Chakra Petch', sans-serif;
+            --active-display-tracking: 0.05em;
+        }
+
+        .dynamic-display-font {
+            font-family: var(--active-display-font);
+            letter-spacing: var(--active-display-tracking);
+        }
+
+        /* Custom Panorama-inspired UI styling */
+        body {
+            background-color: #0A0A0C;
+            color: #F5F5F7;
+            overflow-x: hidden;
+        }
+
+        /* Subtle grid patterns for canvas previews */
+        .bg-grid-dark {
+            background-color: #0A0A0C;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .bg-grid-slate {
+            background-color: #141418;
+            background-image: 
+                linear-gradient(to right, rgba(230, 46, 37, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(230, 46, 37, 0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .bg-grid-light {
+            background-color: #F5F5F7;
+            background-image: 
+                linear-gradient(to right, rgba(10, 10, 12, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(10, 10, 12, 0.06) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Dire glow effects */
+        .panorama-card {
+            background: linear-gradient(180deg, #16161C 0%, #0E0E12 100%);
+            border: 1px solid #262630;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .panorama-card:hover {
+            border-color: rgba(230, 46, 37, 0.45);
+            box-shadow: 0 14px 35px -10px rgba(230, 46, 37, 0.15);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A0C;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A2A35;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E62E25;
+        }
+
+        /* Toggle animation for FX and Construction Guides */
+        .svg-fx-hidden .fx-layer {
+            opacity: 0 !important;
+            transition: opacity 0.3s ease;
+        }
+        .fx-layer {
+            transition: opacity 0.3s ease;
+        }
+        .guide-layer {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .svg-guides-visible .guide-layer {
+            opacity: 1 !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans antialiased selection:bg-dire selection:text-white">
+
+    <!-- Top Panorama Navigation Header -->
+    <header class="sticky top-0 z-40 border-b border-direborder bg-abyssal/90 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
+            <!-- Brand Header Left -->
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded bg-direslate border border-dire/50 flex items-center justify-center shadow-inner">
+                    <!-- Mini Navbar Emblem (Upright Square + BL-to-TR Red Slash) -->
+                    <svg viewBox="0 0 100 100" class="w-6 h-6">
+                        <rect x="10" y="10" width="80" height="80" rx="3" fill="#0A0A0C" stroke="#F5F5F7" stroke-width="5"/>
+                        <polygon points="22,22 64,22 22,64" fill="#F5F5F7"/>
+                        <polygon points="78,78 36,78 78,36" fill="#F5F5F7"/>
+                        <polygon points="8,82 82,8 92,18 18,92" fill="#E62E25"/>
+                        <polygon points="64,6 94,6 94,36 83,36 83,17 64,17" fill="#FF4D42"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="font-display font-bold tracking-wider text-lg text-starkwhite">MMR<span class="text-dire">SLAVE</span></span>
+                        <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-dire/15 text-dire-light border border-dire/30">Brand Studio v4.0</span>
+                    </div>
+                    <p class="text-xs text-ashwhite/60 hidden sm:block">Dota 2 Performance Analytics & Trench Escape Suite</p>
+                </div>
+            </div>
+
+            <!-- Primary Studio Mode Switcher -->
+            <div class="flex items-center bg-direslate p-1 rounded-xl border border-direborder shadow-inner">
+                <button onclick="switchStudioView('logo')" id="view-tab-logo" class="flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-display font-bold uppercase tracking-wider bg-dire text-starkwhite shadow transition">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"/></svg>
+                    <span>01. SVG Logo Studio</span>
+                </button>
+                <button onclick="switchStudioView('typography')" id="view-tab-typography" class="flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-display font-bold uppercase tracking-wider text-ashwhite hover:text-white transition">
+                    <svg class="w-3.5 h-3.5 text-dire-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"/></svg>
+                    <span>02. Brand Typography & Live UI Kit</span>
+                </button>
+            </div>
+
+            <!-- Interactive Studio Master Controls -->
+            <div id="logo-toolbar-controls" class="flex items-center flex-wrap gap-2 sm:gap-3">
+                <!-- Background Switcher -->
+                <div class="flex items-center bg-direslate p-1 rounded-lg border border-direborder">
+                    <span class="text-[11px] font-mono uppercase text-ashwhite/60 px-2 hidden xl:inline">Canvas:</span>
+                    <button onclick="setCanvasBg('dark')" id="btn-bg-dark" class="px-2.5 py-1 rounded text-xs font-medium bg-dire text-starkwhite shadow transition">
+                        Abyssal
+                    </button>
+                    <button onclick="setCanvasBg('slate')" id="btn-bg-slate" class="px-2.5 py-1 rounded text-xs font-medium text-ashwhite hover:text-white transition">
+                        Dire Slate
+                    </button>
+                    <button onclick="setCanvasBg('light')" id="btn-bg-light" class="px-2.5 py-1 rounded text-xs font-medium text-ashwhite hover:text-white transition">
+                        Stark White
+                    </button>
+                </div>
+
+                <!-- FX / Ambient Glow Switch -->
+                <button onclick="toggleFX()" id="btn-fx" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-direslate border border-dire/50 text-xs font-medium text-starkwhite hover:border-dire-light transition">
+                    <span id="fx-dot" class="w-2 h-2 rounded-full bg-dire-light animate-pulse"></span>
+                    <span>FX: <strong id="fx-status">ON</strong></span>
+                </button>
+
+                <!-- Geometry Grid Guides Switch -->
+                <button onclick="toggleGuides()" id="btn-guides" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-direslate border border-direborder text-xs font-medium text-ashwhite hover:text-white transition" title="Toggle Sacred Geometry Grid">
+                    <svg class="w-3.5 h-3.5 text-dire-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+                    <span>Grid: <strong id="guides-status">OFF</strong></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Studio Content -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- ===================================================================== -->
+        <!-- VIEW 1: SVG LOGO STUDIO & EXPORTS                                     -->
+        <!-- ===================================================================== -->
+        <div id="studio-view-logo" class="space-y-8">
+
+        <!-- HERO INTERACTIVE STAGE -->
+        <section class="panorama-card rounded-xl overflow-hidden">
+            <!-- Stage Top Bar -->
+            <div class="px-5 py-3.5 bg-direpanel border-b border-direborder flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-5 bg-dire rounded-sm"></span>
+                    <h2 class="font-display font-bold uppercase tracking-wider text-sm sm:text-base text-starkwhite">
+                        Interactive Vector Master Stage
+                    </h2>
+                </div>
+
+                <!-- Variant Tabs -->
+                <div class="flex flex-wrap items-center gap-1.5 bg-abyssal p-1 rounded-lg border border-direborder">
+                    <button onclick="selectHeroVariant('stacked')" id="tab-stacked" class="px-3 py-1.5 rounded-md text-xs font-display font-bold uppercase tracking-wider bg-dire text-starkwhite transition shadow">
+                        01. Primary Stacked
+                    </button>
+                    <button onclick="selectHeroVariant('horizontal')" id="tab-horizontal" class="px-3 py-1.5 rounded-md text-xs font-display font-bold uppercase tracking-wider text-ashwhite hover:text-white transition">
+                        02. Horizontal Lockup
+                    </button>
+                    <button onclick="selectHeroVariant('emblem')" id="tab-emblem" class="px-3 py-1.5 rounded-md text-xs font-display font-bold uppercase tracking-wider text-ashwhite hover:text-white transition">
+                        03. Solo Emblem
+                    </button>
+                    <button onclick="selectHeroVariant('stencil')" id="tab-stencil" class="px-3 py-1.5 rounded-md text-xs font-display font-bold uppercase tracking-wider text-ashwhite hover:text-white transition">
+                        04. Monochrome Stencil
+                    </button>
+                </div>
+            </div>
+
+            <!-- Interactive SVG Viewport -->
+            <div id="hero-canvas" class="bg-grid-dark relative min-h-[400px] sm:min-h-[460px] flex items-center justify-center p-6 sm:p-12 transition-colors duration-300 overflow-hidden">
+                
+                <!-- Subtle Ambient Radial Backdrop -->
+                <div id="ambient-backdrop" class="pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-500">
+                    <div class="w-96 h-96 rounded-full bg-dire/10 blur-3xl"></div>
+                </div>
+
+                <!-- Dynamic SVG Container rendered from clean templates -->
+                <div id="hero-svg-mount" class="relative z-10 w-full max-w-4xl flex items-center justify-center transition-transform duration-200" style="transform: scale(1);">
+                    <!-- Populated via JS -->
+                </div>
+
+                <!-- Bottom Floating Canvas Metadata & Zoom Controls -->
+                <div class="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
+                    <div class="pointer-events-auto flex flex-wrap items-center gap-3 bg-abyssal/90 backdrop-blur border border-direborder px-3 py-1.5 rounded-lg text-[11px] font-mono text-ashwhite">
+                        <span id="hero-dimensions">VIEWBOX: 0 0 520 470</span>
+                        <span class="text-dire">|</span>
+                        <div class="flex items-center space-x-2">
+                            <span>ZOOM:</span>
+                            <input id="zoom-slider" type="range" min="0.65" max="1.35" step="0.05" value="1" oninput="updateZoom(this.value)" class="w-20 accent-dire cursor-pointer">
+                            <span id="zoom-label" class="w-9 text-right text-starkwhite">100%</span>
+                        </div>
+                    </div>
+
+                    <div class="pointer-events-auto flex items-center space-x-2">
+                        <button onclick="copyVariantSVG(currentHeroVariant)" class="flex items-center space-x-1.5 px-3.5 py-2 rounded-lg bg-direslate hover:bg-direborder border border-direborder text-xs font-medium text-starkwhite transition shadow-lg">
+                            <svg class="w-4 h-4 text-dire-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                            <span>Copy Raw SVG</span>
+                        </button>
+                        <button onclick="downloadVariantSVG(currentHeroVariant)" class="flex items-center space-x-1.5 px-4 py-2 rounded-lg bg-dire hover:bg-dire-light text-xs font-display font-bold uppercase tracking-wider text-starkwhite transition shadow-lg shadow-dire/25">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            <span>Download .SVG</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ALL 4 VARIANTS SHOWCASE & EXPORT CARDS -->
+        <section class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                    <h3 class="font-display font-bold uppercase tracking-wider text-lg text-starkwhite flex items-center gap-2">
+                        <span class="w-2 h-2 bg-dire rotate-45"></span>
+                        Complete SVG Asset Library
+                    </h3>
+                    <p class="text-xs text-ashwhite/70">Inspect, copy vector paths, or download production-ready `.svg` files for any deployment context.</p>
+                </div>
+                <button onclick="openCodeModal(currentHeroVariant)" class="self-start sm:self-auto px-3.5 py-2 rounded-lg bg-direpanel border border-direborder hover:border-dire text-xs font-mono text-ashwhite hover:text-white flex items-center space-x-2 transition">
+                    <svg class="w-4 h-4 text-dire" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                    <span>Inspect Active SVG Source Code</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <!-- CARD 1: Stacked Vertical Lockup -->
+                <div class="panorama-card rounded-xl flex flex-col justify-between overflow-hidden">
+                    <div class="p-4 bg-direpanel border-b border-direborder flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] font-mono uppercase text-dire-light tracking-widest">Variant 01 // Primary Brand Crest</span>
+                            <h4 class="font-display font-bold text-starkwhite text-base">Primary Stacked Lockup</h4>
+                        </div>
+                        <span class="text-xs font-mono text-ashwhite/50">520 × 470px</span>
+                    </div>
+                    <div class="preview-canvas bg-grid-dark p-6 min-h-[240px] flex items-center justify-center transition-colors duration-300" id="card-canvas-stacked">
+                        <!-- Rendered via JS -->
+                    </div>
+                    <div class="p-4 bg-abyssal/80 border-t border-direborder flex flex-wrap items-center justify-between gap-2">
+                        <p class="text-xs text-ashwhite/70">Upright square monolith + clean monumental "MMR" & stenciled "SLAVE".</p>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="openCodeModal('stacked')" class="px-2.5 py-1.5 rounded bg-direslate hover:bg-direborder border border-direborder text-xs font-mono text-ashwhite transition">Code</button>
+                            <button onclick="copyVariantSVG('stacked')" class="px-3 py-1.5 rounded bg-direslate hover:bg-direborder border border-direborder text-xs font-medium text-starkwhite transition">Copy SVG</button>
+                            <button onclick="downloadVariantSVG('stacked')" class="px-3 py-1.5 rounded bg-dire hover:bg-dire-light text-xs font-bold text-starkwhite transition">.SVG</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 2: Horizontal Lockup -->
+                <div class="panorama-card rounded-xl flex flex-col justify-between overflow-hidden">
+                    <div class="p-4 bg-direpanel border-b border-direborder flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] font-mono uppercase text-dire-light tracking-widest">Variant 02 // Header & Stream Banner</span>
+                            <h4 class="font-display font-bold text-starkwhite text-base">Horizontal Esports Lockup</h4>
+                        </div>
+                        <span class="text-xs font-mono text-ashwhite/50">820 × 260px</span>
+                    </div>
+                    <div class="preview-canvas bg-grid-dark p-6 min-h-[240px] flex items-center justify-center transition-colors duration-300" id="card-canvas-horizontal">
+                        <!-- Rendered via JS -->
+                    </div>
+                    <div class="p-4 bg-abyssal/80 border-t border-direborder flex flex-wrap items-center justify-between gap-2">
+                        <p class="text-xs text-ashwhite/70">Upright square emblem paired horizontally with clean un-slashed "MMR" typography.</p>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="openCodeModal('horizontal')" class="px-2.5 py-1.5 rounded bg-direslate hover:bg-direborder border border-direborder text-xs font-mono text-ashwhite transition">Code</button>
+                            <button onclick="copyVariantSVG('horizontal')" class="px-3 py-1.5 rounded bg-direslate hover:bg-direborder border border-direborder text-xs font-medium text-starkwhite transition">Copy SVG</button>
+                            <button onclick="downloadVariantSVG('horizontal')" class="px-3 py-1.5 rounded bg-dire hover:bg-dire-light text-xs font-bold text-starkwhite transition">.SVG</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 3: App Icon & Avatar Previews -->
+                <div class="panorama-card rounded-xl flex flex-col justify-between overflow-hidden">
+                    <div class="p-4 bg-direpanel border-b border-direborder flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] font-mono uppercase text-dire-light tracking-widest">Variant 03 // App Launcher & Socials</span>
+                            <h4 class="font-display font-bold text-starkwhite text-base">Central Emblem + iOS & Steam/Discord</h4>
+                        </div>
+                        <span class="text-xs font-mono text-ashwhite/50">512 × 512px</span>
+                    </div>
+                    <div class="preview-canvas bg-grid-dark p-6 min-h-[220px] flex flex-wrap items-center justify-around gap-6 transition-colors duration-300" id="card-canvas-emblem">
+                        <!-- iOS Squircle App Icon Preview -->
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="w-28 h-28 rounded-[26px] bg-abyssal border-2 border-dire/60 shadow-2xl shadow-dire/20 overflow-hidden flex items-center justify-center p-2 relative">
+                                <div id="ios-icon-mount" class="w-full h-full"></div>
+                            </div>
+                            <span class="text-[11px] font-mono text-ashwhite/70 bg-abyssal/80 px-2 py-0.5 rounded border border-direborder">iOS / Android Squircle</span>
+                        </div>
+
+                        <!-- Discord / Steam Circular Avatar Preview -->
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="relative">
+                                <div class="w-28 h-28 rounded-full bg-abyssal border-2 border-starkwhite/80 shadow-2xl overflow-hidden flex items-center justify-center p-2.5">
+                                    <div id="avatar-icon-mount" class="w-full h-full"></div>
+                                </div>
+                                <!-- Online Status Indicator -->
+                                <span class="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-dire border-4 border-abyssal" title="In-Game: Dota 2"></span>
+                            </div>
+                            <span class="text-[11px] font-mono text-ashwhite/70 bg-abyssal/80 px-2 py-0.5 rounded border border-direborder">Steam / Discord Avatar</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-abyssal/80 border-t border-direborder flex flex-wrap items-center justify-between gap-2">
+                        <p class="text-xs text-ashwhite/70">High-impact silhouette engineered for 32px–512px launcher & profile scaling.</p>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="openCodeModal('emblem')" class="px-2.5 py-1.5 rounded bg-direslate hover:bg-direborder border border-direborder text-xs font-mono text-ashwhite transition">Code</button>
+                            <button onclick="copyVariantSVG('emblem')" class="px-3 py-1.5 rounded bg-direslate hover:bg-direborder border border-direborder text-xs font-medium text-starkwhite transition">Copy SVG</button>
+                            <button onclick="downloadVariantSVG('emblem')" class="px-3 py-1.5 rounded bg-dire hover:bg-dire-light text-xs font-bold text-starkwhite transition">.SVG</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 4: Minimalist Monochrome / 2-Tone Stencil -->
+                <div class="panorama-card rounded-xl flex flex-col justify-between overflow-hidden">
+                    <div class="p-4 bg-direpanel border-b border-direborder flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] font-mono uppercase text-dire-light tracking-widest">Variant 04 // Watermark & Stream HUD</span>
+                            <h4 class="font-display font-bold text-starkwhite text-base">Minimalist Flat 2-Tone Stencil</h4>
+                        </div>
+                        <span class="text-xs font-mono text-ashwhite/50">920 × 280px</span>
+                    </div>
+                    <div class="preview-canvas bg-grid-dark p-6 min-h-[220px] flex items-center justify-center transition-colors duration-300" id="card-canvas-stencil">
+                        <!-- Rendered via JS -->
+                    </div>
+                    <div class="p-4 bg-abyssal/80 border-t border-direborder flex flex-wrap items-center justify-between gap-2">
+                        <p class="text-xs text-ashwhite/70">Zero-gradient pure flat paths for OBS overlays, merch embroidery, and laser etching.</p>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="openCodeModal('stencil')" class="px-2.5 py-1.5 rounded bg-direslate hover:bg-direborder border border-direborder text-xs font-mono text-ashwhite transition">Code</button>
+                            <button onclick="copyVariantSVG('stencil')" class="px-3 py-1.5 rounded bg-direslate hover:bg-direborder border border-direborder text-xs font-medium text-starkwhite transition">Copy SVG</button>
+                            <button onclick="downloadVariantSVG('stencil')" class="px-3 py-1.5 rounded bg-dire hover:bg-dire-light text-xs font-bold text-starkwhite transition">.SVG</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- DESIGN ANATOMY & COLOR SPECIFICATION PANEL -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Symbolism & Anatomy -->
+            <div class="lg:col-span-2 panorama-card rounded-xl p-6 space-y-4">
+                <div class="flex items-center space-x-2 border-b border-direborder pb-3">
+                    <span class="w-2 h-4 bg-dire"></span>
+                    <h3 class="font-display font-bold uppercase tracking-wider text-base text-starkwhite">
+                        Emblem Architecture & Dota 2 Visual Semiotics
+                    </h3>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
+                    <div class="bg-abyssal/70 border border-direborder p-4 rounded-lg space-y-2">
+                        <div class="text-xs font-mono text-dire-light uppercase">01 // Upright Square Citadel</div>
+                        <h4 class="font-display font-bold text-sm text-starkwhite">Dota 2 Map & Ancient Shards</h4>
+                        <p class="text-xs text-ashwhite/70 leading-relaxed">
+                            Constructed inside a fortified, upright square monolith frame housing two stark white high-ground Ancient shards in the top-left and bottom-right territories.
+                        </p>
+                    </div>
+                    <div class="bg-abyssal/70 border border-direborder p-4 rounded-lg space-y-2">
+                        <div class="text-xs font-mono text-dire-light uppercase">02 // BL-to-TR Crimson Trajectory</div>
+                        <h4 class="font-display font-bold text-sm text-starkwhite">Ascension Slash & Broken Chains</h4>
+                        <p class="text-xs text-ashwhite/70 leading-relaxed">
+                            A blazing red diagonal cuts from bottom-left to top-right—shattering the MMR trench chains at the base and surging into an Immortal ascension arrowhead at the top-right apex.
+                        </p>
+                    </div>
+                    <div class="bg-abyssal/70 border border-direborder p-4 rounded-lg space-y-2">
+                        <div class="text-xs font-mono text-dire-light uppercase">03 // Clean Monumental Type</div>
+                        <h4 class="font-display font-bold text-sm text-starkwhite">Un-Slashed "MMR" + "SLAVE"</h4>
+                        <p class="text-xs text-ashwhite/70 leading-relaxed">
+                            "MMR" is sculpted in ultra-bold, un-slashed Stark White vector geometry for maximum legibility, anchored by a crimson-framed stenciled "SLAVE" badge.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strict Color Palette Swatches -->
+            <div class="panorama-card rounded-xl p-6 space-y-4">
+                <div class="flex items-center justify-between border-b border-direborder pb-3">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2 h-4 bg-starkwhite"></span>
+                        <h3 class="font-display font-bold uppercase tracking-wider text-base text-starkwhite">
+                            Strict Spec Palette
+                        </h3>
+                    </div>
+                    <span class="text-[11px] font-mono text-ashwhite/60">Click to Copy HEX</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2.5">
+                    <button onclick="copyHex('#0A0A0C')" class="group flex items-center space-x-2.5 p-2 rounded-lg bg-abyssal border border-direborder hover:border-starkwhite transition text-left">
+                        <span class="w-7 h-7 rounded bg-[#0A0A0C] border border-white/20 shrink-0"></span>
+                        <div>
+                            <div class="text-xs font-bold text-starkwhite group-hover:text-dire-light">Abyssal</div>
+                            <div class="text-[11px] font-mono text-ashwhite/60">#0A0A0C</div>
+                        </div>
+                    </button>
+                    <button onclick="copyHex('#141418')" class="group flex items-center space-x-2.5 p-2 rounded-lg bg-abyssal border border-direborder hover:border-starkwhite transition text-left">
+                        <span class="w-7 h-7 rounded bg-[#141418] border border-white/20 shrink-0"></span>
+                        <div>
+                            <div class="text-xs font-bold text-starkwhite group-hover:text-dire-light">Dire Slate</div>
+                            <div class="text-[11px] font-mono text-ashwhite/60">#141418</div>
+                        </div>
+                    </button>
+                    <button onclick="copyHex('#F5F5F7')" class="group flex items-center space-x-2.5 p-2 rounded-lg bg-abyssal border border-direborder hover:border-starkwhite transition text-left">
+                        <span class="w-7 h-7 rounded bg-[#F5F5F7] border border-black/20 shrink-0"></span>
+                        <div>
+                            <div class="text-xs font-bold text-starkwhite group-hover:text-dire-light">Stark White</div>
+                            <div class="text-[11px] font-mono text-ashwhite/60">#F5F5F7</div>
+                        </div>
+                    </button>
+                    <button onclick="copyHex('#D1D1D6')" class="group flex items-center space-x-2.5 p-2 rounded-lg bg-abyssal border border-direborder hover:border-starkwhite transition text-left">
+                        <span class="w-7 h-7 rounded bg-[#D1D1D6] border border-black/20 shrink-0"></span>
+                        <div>
+                            <div class="text-xs font-bold text-starkwhite group-hover:text-dire-light">Ash Steel</div>
+                            <div class="text-[11px] font-mono text-ashwhite/60">#D1D1D6</div>
+                        </div>
+                    </button>
+                    <button onclick="copyHex('#E62E25')" class="group flex items-center space-x-2.5 p-2 rounded-lg bg-abyssal border border-direborder hover:border-dire-light transition text-left">
+                        <span class="w-7 h-7 rounded bg-[#E62E25] shrink-0"></span>
+                        <div>
+                            <div class="text-xs font-bold text-starkwhite group-hover:text-dire-light">Dire Red</div>
+                            <div class="text-[11px] font-mono text-ashwhite/60">#E62E25</div>
+                        </div>
+                    </button>
+                    <button onclick="copyHex('#FF4D42')" class="group flex items-center space-x-2.5 p-2 rounded-lg bg-abyssal border border-direborder hover:border-dire-light transition text-left">
+                        <span class="w-7 h-7 rounded bg-[#FF4D42] shrink-0"></span>
+                        <div>
+                            <div class="text-xs font-bold text-starkwhite group-hover:text-dire-light">Blood Flare</div>
+                            <div class="text-[11px] font-mono text-ashwhite/60">#FF4D42</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        </div> <!-- END VIEW 1: SVG LOGO STUDIO -->
+
+        <!-- ===================================================================== -->
+        <!-- VIEW 2: BRAND TYPOGRAPHY & LIVE DOTA 2 COACHING UI KIT                -->
+        <!-- ===================================================================== -->
+        <div id="studio-view-typography" class="hidden space-y-8">
+
+            <!-- TOP CONTROL BAR: DISPLAY FONT SWITCHER -->
+            <section class="panorama-card rounded-xl p-5 sm:p-6 border border-dire/40">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-direborder">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-5 bg-dire rounded-sm"></span>
+                            <span class="text-xs font-mono uppercase tracking-widest text-dire-light">Interactive Font Matrix // Live Preview</span>
+                        </div>
+                        <h2 class="font-display font-bold text-xl sm:text-2xl text-starkwhite mt-1">
+                            Select Active Primary Display Font
+                        </h2>
+                        <p class="text-xs text-ashwhite/70 mt-0.5">
+                            Switch the brand voice below to test how each display typeface pairs with the upright square **MMRSlave** emblem, **Rajdhani** UI badges, and **JetBrains Mono** telemetry.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <button onclick="copyCSSVariables()" class="flex items-center space-x-2 px-4 py-2.5 rounded-lg bg-dire hover:bg-dire-light text-xs font-display font-bold uppercase tracking-wider text-starkwhite transition shadow-lg shadow-dire/25">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                            <span>Copy :root CSS Stack</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4 Font Option Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-5">
+                    <!-- Option 1: Chakra Petch -->
+                    <button onclick="setDisplayFont('chakra')" id="font-card-chakra" class="text-left p-4 rounded-xl bg-dire/15 border-2 border-dire transition group relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-dire text-starkwhite font-bold">Default // Chamfered</span>
+                            <span class="text-[11px] font-mono text-ashwhite/60">700 Bold</span>
+                        </div>
+                        <div class="font-display font-bold text-2xl text-starkwhite uppercase tracking-wider mt-1">Chakra Petch</div>
+                        <p class="text-xs text-ashwhite/70 mt-1 leading-relaxed">
+                            45° chamfered corners mirror the upright square monolith frame and diagonal slash.
+                        </p>
+                    </button>
+
+                    <!-- Option 2: Cinzel -->
+                    <button onclick="setDisplayFont('cinzel')" id="font-card-cinzel" class="text-left p-4 rounded-xl bg-abyssal/80 border border-direborder hover:border-starkwhite/50 transition group relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-direslate text-dire-light border border-dire/30">Dota 2 Reaver Vibe</span>
+                            <span class="text-[11px] font-mono text-ashwhite/60">900 Black</span>
+                        </div>
+                        <div class="font-cinzel font-black text-2xl text-starkwhite uppercase tracking-wider mt-1">Cinzel Black</div>
+                        <p class="text-xs text-ashwhite/70 mt-1 leading-relaxed">
+                            Wedge-serif dark fantasy authority echoing Valve's official Dota 2 *Reaver* typeface.
+                        </p>
+                    </button>
+
+                    <!-- Option 3: Teko -->
+                    <button onclick="setDisplayFont('teko')" id="font-card-teko" class="text-left p-4 rounded-xl bg-abyssal/80 border border-direborder hover:border-starkwhite/50 transition group relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-direslate text-ashwhite border border-direborder">Condensed Power</span>
+                            <span class="text-[11px] font-mono text-ashwhite/60">700 Bold</span>
+                        </div>
+                        <div class="font-teko font-bold text-3xl leading-none text-starkwhite uppercase tracking-wider mt-1">Teko Display</div>
+                        <p class="text-xs text-ashwhite/70 mt-1 leading-relaxed">
+                            Tall, monolithic condensed letterforms built for high-impact rank-up banners & thumbnails.
+                        </p>
+                    </button>
+
+                    <!-- Option 4: Oxanium -->
+                    <button onclick="setDisplayFont('oxanium')" id="font-card-oxanium" class="text-left p-4 rounded-xl bg-abyssal/80 border border-direborder hover:border-starkwhite/50 transition group relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-direslate text-ashwhite border border-direborder">Industrial HUD</span>
+                            <span class="text-[11px] font-mono text-ashwhite/60">700 Bold</span>
+                        </div>
+                        <div class="font-oxanium font-bold text-2xl text-starkwhite uppercase tracking-wider mt-1">Oxanium HUD</div>
+                        <p class="text-xs text-ashwhite/70 mt-1 leading-relaxed">
+                            Squared mechanical geometry that locks into the wide stenciled tracking of "SLAVE".
+                        </p>
+                    </button>
+                </div>
+            </section>
+
+            <!-- LIVE DOTA 2 COACHING APP UI MOCKUP (WITH INTEGRATED UPRIGHT SQUARE LOGO) -->
+            <section class="panorama-card rounded-xl overflow-hidden border border-direborder">
+                <!-- Mockup Browser / App Frame Bar -->
+                <div class="px-5 py-3 bg-direpanel border-b border-direborder flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center space-x-2.5">
+                        <div class="flex space-x-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-dire"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-direborder"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-direborder"></span>
+                        </div>
+                        <span class="text-xs font-mono text-ashwhite/80 uppercase tracking-wider">
+                            LIVE PRODUCTION UI PREVIEW // MMRSLAVE DESKTOP CLIENT v2.4 (PATCH 7.38c)
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-[11px] font-mono text-dire-light">
+                        <span>DISPLAY: <strong id="active-font-badge" class="text-starkwhite">CHAKRA PETCH</strong></span>
+                        <span>•</span>
+                        <span>UI: <strong class="text-starkwhite">RAJDHANI</strong></span>
+                        <span>•</span>
+                        <span>DATA: <strong class="text-starkwhite">JETBRAINS MONO</strong></span>
+                    </div>
+                </div>
+
+                <!-- Inside the Simulated MMRSlave App Interface -->
+                <div class="bg-[#08080A] p-5 sm:p-8 space-y-6">
+                    
+                    <!-- Simulated App Top Navigation Bar with Horizontal SVG Lockup -->
+                    <div class="bg-direslate/90 border border-direborder rounded-xl px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center space-x-6">
+                            <!-- Live Mounted Upright Square Emblem + Brand Type -->
+                            <div class="flex items-center space-x-3">
+                                <div id="ui-mockup-emblem" class="w-11 h-11 shrink-0"></div>
+                                <div>
+                                    <div class="dynamic-display-font font-bold text-xl uppercase text-starkwhite leading-none">
+                                        MMR<span class="text-dire">SLAVE</span>
+                                    </div>
+                                    <div class="font-ui font-bold text-[10px] uppercase tracking-[0.25em] text-ashwhite/70 mt-0.5">
+                                        IMMORTAL COACHING TELEMETRY
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Simulated Nav Links (Rajdhani UI Font) -->
+                            <nav class="hidden md:flex items-center space-x-1 font-ui font-bold uppercase tracking-wider text-sm">
+                                <span class="px-3 py-1.5 rounded bg-dire/20 text-starkwhite border border-dire/40">Post-Match Audit</span>
+                                <span class="px-3 py-1.5 rounded text-ashwhite/70 hover:text-white cursor-pointer">Laning Heatmap</span>
+                                <span class="px-3 py-1.5 rounded text-ashwhite/70 hover:text-white cursor-pointer">Item Timings</span>
+                                <span class="px-3 py-1.5 rounded text-ashwhite/70 hover:text-white cursor-pointer">Pro Replay Diff</span>
+                            </nav>
+                        </div>
+
+                        <!-- Simulated Player Rank & MMR Counter -->
+                        <div class="flex items-center space-x-3 bg-abyssal px-3.5 py-2 rounded-lg border border-direborder">
+                            <div class="text-right">
+                                <div class="font-ui font-bold text-[11px] uppercase tracking-widest text-dire-light">CURRENT RANK // SEA</div>
+                                <div class="font-mono font-bold text-sm text-starkwhite">7,420 MMR <span class="text-xs text-emerald-400">(+50)</span></div>
+                            </div>
+                            <div class="w-8 h-8 rounded bg-dire/20 border border-dire flex items-center justify-center font-mono font-bold text-xs text-dire-light">
+                                #842
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Coaching Hero Banner + Post-Match Telemetry Grid -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        
+                        <!-- Left 7 Cols: Hero Performance & AI Coach Priority Directives -->
+                        <div class="lg:col-span-7 bg-gradient-to-b from-[#14141A] to-[#0C0C10] border border-direborder rounded-xl p-6 flex flex-col justify-between space-y-6 relative overflow-hidden">
+                            <!-- Diagonal Crimson Accent Slash in Background -->
+                            <div class="pointer-events-none absolute -right-12 -top-12 w-48 h-48 bg-dire/10 rotate-45 blur-2xl"></div>
+
+                            <div class="space-y-3 relative z-10">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="font-ui font-bold text-xs uppercase tracking-[0.2em] px-2.5 py-0.5 rounded bg-dire text-starkwhite">
+                                        +50 MMR DOUBLED DOWN
+                                    </span>
+                                    <span class="font-mono text-xs text-ashwhite/70 bg-abyssal px-2.5 py-0.5 rounded border border-direborder">
+                                        MATCH ID: 8194028511 // POS 1 CARRY
+                                    </span>
+                                </div>
+
+                                <h3 id="live-hero-headline" class="dynamic-display-font font-bold text-2xl sm:text-4xl uppercase text-starkwhite leading-tight">
+                                    ESCAPE THE TRENCH. <span class="text-dire">DOMINATE YOUR LANE.</span>
+                                </h3>
+
+                                <p class="font-sans text-xs sm:text-sm text-ashwhite/80 leading-relaxed max-w-2xl">
+                                    Your first 10 minutes dictated 78% of this game's win probability. By securing the 07:00 Wisdom Rune rotation and hitting your Battle Fury timing 1m 45s ahead of the 7.5k Immortal bracket average, you completely neutralized the enemy offlane pressure.
+                                </p>
+                            </div>
+
+                            <!-- 3 AI Coach Priority Fix Directives (Rajdhani + Inter + JetBrains Mono) -->
+                            <div class="space-y-2.5 pt-2">
+                                <div class="font-ui font-bold text-xs uppercase tracking-[0.18em] text-ashwhite/70 flex items-center justify-between">
+                                    <span>COACH PRIORITY BREAKDOWN (3 ACTION ITEMS)</span>
+                                    <span class="font-mono text-[11px] text-dire-light">IMPACT SCORE: 9.4 / 10</span>
+                                </div>
+
+                                <!-- Directive 1 -->
+                                <div class="bg-abyssal/90 border-l-4 border-dire p-3.5 rounded-r-lg border border-direborder flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="font-ui font-bold text-xs uppercase tracking-wider px-2 py-0.5 rounded bg-dire/20 text-dire-light">CRITICAL FIX // 18:20</span>
+                                            <span class="font-ui font-bold text-sm uppercase text-starkwhite">Skipped BKB Timing Before Roshan Pit Fight</span>
+                                        </div>
+                                        <p class="font-sans text-xs text-ashwhite/70 mt-1">
+                                            Queuing Butterfly before Black King Bar delayed your High Ground siege by 4m 10s against 3 instant-hex disables.
+                                        </p>
+                                    </div>
+                                    <div class="font-mono text-xs font-bold text-dire-light shrink-0 bg-dire/10 px-2.5 py-1.5 rounded border border-dire/30">
+                                        -14.2% WIN PROB
+                                    </div>
+                                </div>
+
+                                <!-- Directive 2 -->
+                                <div class="bg-abyssal/90 border-l-4 border-starkwhite p-3.5 rounded-r-lg border border-direborder flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="font-ui font-bold text-xs uppercase tracking-wider px-2 py-0.5 rounded bg-white/10 text-starkwhite">IMMORTAL BENCHMARK // 13:40</span>
+                                            <span class="font-ui font-bold text-sm uppercase text-starkwhite">Battle Fury + Power Treads Acceleration</span>
+                                        </div>
+                                        <p class="font-sans text-xs text-ashwhite/70 mt-1">
+                                            84 Last Hits at 10:00 with 4 stacked Ancient camps farmed by minute 15:00. Top 98th percentile efficiency.
+                                        </p>
+                                    </div>
+                                    <div class="font-mono text-xs font-bold text-starkwhite shrink-0 bg-white/10 px-2.5 py-1.5 rounded border border-white/20">
+                                        842 GPM PEAK
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right 5 Cols: Tabular Telemetry & Item Timing Card (JetBrains Mono Showcase) -->
+                        <div class="lg:col-span-5 bg-[#111116] border border-direborder rounded-xl p-6 flex flex-col justify-between space-y-5">
+                            <div>
+                                <div class="flex items-center justify-between border-b border-direborder pb-3">
+                                    <div>
+                                        <span class="font-ui font-bold text-xs uppercase tracking-[0.2em] text-dire-light">TABULAR TELEMETRY</span>
+                                        <h4 class="dynamic-display-font font-bold text-lg uppercase text-starkwhite">7,420 IMMORTAL BENCHMARK</h4>
+                                    </div>
+                                    <span class="font-mono text-xs px-2.5 py-1 rounded bg-abyssal border border-direborder text-starkwhite">
+                                        KDA: 16 / 2 / 14
+                                    </span>
+                                </div>
+
+                                <!-- Telemetry Metrics Grid (JetBrains Mono) -->
+                                <div class="grid grid-cols-2 gap-3 mt-4">
+                                    <div class="bg-abyssal p-3.5 rounded-lg border border-direborder">
+                                        <div class="font-ui font-bold text-xs uppercase tracking-wider text-ashwhite/60">NET WORTH @ 20:00</div>
+                                        <div class="font-mono font-bold text-xl text-starkwhite mt-1">13,840 <span class="text-xs text-dire-light">+2,410</span></div>
+                                        <div class="font-sans text-[11px] text-ashwhite/50 mt-0.5">Immortal Avg: 11,430g</div>
+                                    </div>
+                                    <div class="bg-abyssal p-3.5 rounded-lg border border-direborder">
+                                        <div class="font-ui font-bold text-xs uppercase tracking-wider text-ashwhite/60">GPM / XPM EFFICIENCY</div>
+                                        <div class="font-mono font-bold text-xl text-starkwhite mt-1">814 <span class="text-ashwhite/40">/</span> 962</div>
+                                        <div class="font-sans text-[11px] text-ashwhite/50 mt-0.5">99.1% Farm Route Score</div>
+                                    </div>
+                                </div>
+
+                                <!-- Core Item Timing Progression Bar -->
+                                <div class="mt-5 space-y-2.5">
+                                    <div class="font-ui font-bold text-xs uppercase tracking-widest text-ashwhite/70">
+                                        CORE ITEM TIMING DELTA (JETBRAINS MONO)
+                                    </div>
+                                    <div class="space-y-2 font-mono text-xs">
+                                        <div class="flex items-center justify-between bg-abyssal px-3 py-2 rounded border border-direborder">
+                                            <span class="text-starkwhite font-medium">01. Power Treads + Wraith</span>
+                                            <div class="flex items-center space-x-3">
+                                                <span class="text-ashwhite/50">AVG 07:45</span>
+                                                <span class="text-starkwhite font-bold">06:50</span>
+                                                <span class="text-dire-light font-bold">-00:55</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between bg-abyssal px-3 py-2 rounded border border-direborder">
+                                            <span class="text-starkwhite font-medium">02. Battle Fury</span>
+                                            <div class="flex items-center space-x-3">
+                                                <span class="text-ashwhite/50">AVG 15:25</span>
+                                                <span class="text-starkwhite font-bold">13:40</span>
+                                                <span class="text-dire-light font-bold">-01:45</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between bg-abyssal px-3 py-2 rounded border border-dire/50">
+                                            <span class="text-starkwhite font-medium">03. Manta Style + BKB</span>
+                                            <div class="flex items-center space-x-3">
+                                                <span class="text-ashwhite/50">AVG 23:10</span>
+                                                <span class="text-starkwhite font-bold">21:05</span>
+                                                <span class="text-dire-light font-bold">-02:05</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Simulated CTA Button -->
+                            <div class="pt-2">
+                                <button onclick="copyCSSVariables()" class="w-full py-2.5 px-4 rounded-lg bg-dire hover:bg-dire-light text-starkwhite dynamic-display-font font-bold text-sm uppercase flex items-center justify-center space-x-2 transition shadow-lg shadow-dire/20">
+                                    <span>LAUNCH INTERACTIVE REPLAY PARSER</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- INTERACTIVE TYPE SCALE SPECIMEN & LIVE CUSTOM HEADLINE TESTER -->
+            <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Left 7 Cols: Interactive Custom Text & Tagline Sandbox -->
+                <div class="lg:col-span-7 panorama-card rounded-xl p-6 space-y-5">
+                    <div class="flex items-center justify-between border-b border-direborder pb-3">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-4 bg-dire"></span>
+                            <h3 class="font-display font-bold uppercase tracking-wider text-base text-starkwhite">
+                                Live Brand Headline & Sub-Badge Tester
+                            </h3>
+                        </div>
+                        <span class="text-xs font-mono text-ashwhite/60">Type below to test live</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[11px] font-mono uppercase text-ashwhite/70 mb-1.5">Primary Brand Headline:</label>
+                            <input type="text" id="custom-headline-input" value="SHATTER THE MMR TRENCH" oninput="updateCustomTester()" class="w-full bg-abyssal border border-direborder focus:border-dire rounded-lg px-3.5 py-2 text-sm text-starkwhite font-sans focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-mono uppercase text-ashwhite/70 mb-1.5">Stenciled Sub-Badge (Rajdhani):</label>
+                            <input type="text" id="custom-subbadge-input" value="IMMORTAL RANK ANALYTICS // +50 MMR" oninput="updateCustomTester()" class="w-full bg-abyssal border border-direborder focus:border-dire rounded-lg px-3.5 py-2 text-sm text-starkwhite font-sans focus:outline-none">
+                        </div>
+                    </div>
+
+                    <!-- Live Specimen Stage -->
+                    <div class="bg-grid-dark border border-direborder rounded-xl p-6 sm:p-8 flex flex-col justify-center space-y-4 min-h-[210px]">
+                        <div class="inline-flex items-center space-x-2 self-start px-3 py-1 rounded bg-dire/15 border border-dire/40">
+                            <span class="w-2 h-2 bg-dire"></span>
+                            <span id="tester-subbadge-output" class="font-ui font-bold text-xs uppercase tracking-[0.24em] text-dire-light">
+                                IMMORTAL RANK ANALYTICS // +50 MMR
+                            </span>
+                        </div>
+                        <div id="tester-headline-output" class="dynamic-display-font font-bold text-3xl sm:text-5xl uppercase text-starkwhite leading-none break-words">
+                            SHATTER THE MMR TRENCH
+                        </div>
+                        <div class="pt-2 border-t border-direborder/60 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-ashwhite/60">
+                            <span id="tester-font-spec">FONT: Chakra Petch 700 Bold // UPPERCASE</span>
+                            <span>COLOR: #F5F5F7 / #E62E25</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right 5 Cols: 4-Tier Typography Hierarchy & Ready-to-Copy CSS Variables -->
+                <div class="lg:col-span-5 panorama-card rounded-xl p-6 flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between border-b border-direborder pb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-2 h-4 bg-starkwhite"></span>
+                                <h3 class="font-display font-bold uppercase tracking-wider text-base text-starkwhite">
+                                    Production CSS Font Variables
+                                </h3>
+                            </div>
+                            <button onclick="copyCSSVariables()" class="text-xs font-mono text-dire-light hover:underline">Copy CSS</button>
+                        </div>
+
+                        <pre id="css-variables-preview" class="bg-[#070709] border border-direborder rounded-lg p-3.5 text-[11px] font-mono text-ashwhite overflow-x-auto leading-relaxed">:root {
+  /* 1. Brand Display (Active Selection) */
+  --font-display: 'Chakra Petch', sans-serif;
+
+  /* 2. Tactical UI & Stencil Badges */
+  --font-ui: 'Rajdhani', sans-serif;
+
+  /* 3. Coaching Guides & Body Copy */
+  --font-body: 'Inter', sans-serif;
+
+  /* 4. MMR Counters & Item Timings */
+  --font-mono: 'JetBrains Mono', monospace;
+}</pre>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2.5 pt-1 text-xs">
+                        <div class="bg-abyssal p-3 rounded-lg border border-direborder">
+                            <div class="font-mono text-[10px] text-dire-light uppercase">01. Display Header</div>
+                            <div id="spec-tier-1" class="dynamic-display-font font-bold text-sm text-starkwhite uppercase mt-0.5">Chakra Petch 700</div>
+                        </div>
+                        <div class="bg-abyssal p-3 rounded-lg border border-direborder">
+                            <div class="font-mono text-[10px] text-dire-light uppercase">02. Tactical HUD</div>
+                            <div class="font-ui font-bold text-sm text-starkwhite uppercase tracking-wider mt-0.5">Rajdhani 700</div>
+                        </div>
+                        <div class="bg-abyssal p-3 rounded-lg border border-direborder">
+                            <div class="font-mono text-[10px] text-ashwhite/60 uppercase">03. Body Copy</div>
+                            <div class="font-sans font-medium text-sm text-starkwhite mt-0.5">Inter 400 / 600</div>
+                        </div>
+                        <div class="bg-abyssal p-3 rounded-lg border border-direborder">
+                            <div class="font-mono text-[10px] text-ashwhite/60 uppercase">04. Telemetry Data</div>
+                            <div class="font-mono font-bold text-sm text-starkwhite mt-0.5">JetBrains Mono</div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </div> <!-- END VIEW 2: BRAND TYPOGRAPHY & LIVE UI KIT -->
+
+    </main>
+
+    <!-- SVG Source Code Inspector Modal -->
+    <div id="code-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <div class="panorama-card rounded-xl max-w-3xl w-full overflow-hidden border border-dire/50 shadow-2xl">
+            <div class="px-5 py-3.5 bg-direpanel border-b border-direborder flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-dire"></span>
+                    <h4 id="modal-title" class="font-display font-bold uppercase tracking-wider text-sm text-starkwhite">Raw SVG Code Inspector</h4>
+                </div>
+                <button onclick="closeCodeModal()" class="text-ashwhite hover:text-white text-sm font-mono px-2 py-1 rounded bg-abyssal border border-direborder">ESC / Close</button>
+            </div>
+            <div class="p-4 bg-abyssal">
+                <textarea id="modal-code-area" readonly class="w-full h-72 bg-[#070709] text-ashwhite font-mono text-xs p-4 rounded-lg border border-direborder focus:outline-none focus:border-dire resize-none"></textarea>
+            </div>
+            <div class="px-5 py-3 bg-direpanel border-t border-direborder flex items-center justify-end space-x-3">
+                <button onclick="copyModalCode()" class="px-4 py-2 rounded-lg bg-dire hover:bg-dire-light text-xs font-display font-bold uppercase tracking-wider text-starkwhite transition">
+                    Copy Raw SVG to Clipboard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Non-Blocking Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 pointer-events-none opacity-0 translate-y-3 transition-all duration-300">
+        <div class="flex items-center space-x-3 bg-direpanel border-l-4 border-dire px-4 py-3 rounded-lg shadow-2xl text-starkwhite">
+            <svg class="w-5 h-5 text-dire-light shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span id="toast-message" class="text-xs font-medium tracking-wide">SVG copied to clipboard!</span>
+        </div>
+    </div>
+
+    <!-- SVG GENERATION ENGINE & INTERACTIVE STUDIO LOGIC -->
+    <script>
+        let currentHeroVariant = 'stacked';
+        let currentBg = 'dark';
+        let fxEnabled = true;
+        let guidesEnabled = false;
+        let currentZoom = 1;
+        let currentStudioView = 'logo';
+        let activeDisplayFontKey = 'chakra';
+
+        const displayFontConfig = {
+            chakra: {
+                name: 'Chakra Petch',
+                css: "'Chakra Petch', sans-serif",
+                tracking: '0.05em',
+                weightLabel: '700 Bold'
+            },
+            cinzel: {
+                name: 'Cinzel',
+                css: "'Cinzel', serif",
+                tracking: '0.06em',
+                weightLabel: '900 Black'
+            },
+            teko: {
+                name: 'Teko',
+                css: "'Teko', sans-serif",
+                tracking: '0.08em',
+                weightLabel: '700 Bold'
+            },
+            oxanium: {
+                name: 'Oxanium',
+                css: "'Oxanium', sans-serif",
+                tracking: '0.06em',
+                weightLabel: '700 Bold'
+            }
+        };
+
+        /**
+         * Switch between "01. SVG Logo Studio" and "02. Brand Typography & Live UI Kit"
+         */
+        function switchStudioView(view) {
+            currentStudioView = view;
+            const logoView = document.getElementById('studio-view-logo');
+            const typoView = document.getElementById('studio-view-typography');
+            const tabLogo = document.getElementById('view-tab-logo');
+            const tabTypo = document.getElementById('view-tab-typography');
+            const toolbar = document.getElementById('logo-toolbar-controls');
+
+            if (view === 'logo') {
+                logoView.classList.remove('hidden');
+                typoView.classList.add('hidden');
+                toolbar.classList.remove('hidden');
+                tabLogo.className = 'flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-display font-bold uppercase tracking-wider bg-dire text-starkwhite shadow transition';
+                tabTypo.className = 'flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-display font-bold uppercase tracking-wider text-ashwhite hover:text-white transition';
+            } else {
+                logoView.classList.add('hidden');
+                typoView.classList.remove('hidden');
+                toolbar.classList.add('hidden');
+                tabTypo.className = 'flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-display font-bold uppercase tracking-wider bg-dire text-starkwhite shadow transition';
+                tabLogo.className = 'flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-display font-bold uppercase tracking-wider text-ashwhite hover:text-white transition';
+            }
+        }
+
+        /**
+         * Switch Active Primary Display Font across the Typography & Live UI Kit
+         */
+        function setDisplayFont(fontKey) {
+            activeDisplayFontKey = fontKey;
+            const cfg = displayFontConfig[fontKey];
+            document.documentElement.style.setProperty('--active-display-font', cfg.css);
+            document.documentElement.style.setProperty('--active-display-tracking', cfg.tracking);
+
+            // Update card active borders
+            ['chakra', 'cinzel', 'teko', 'oxanium'].forEach(k => {
+                const card = document.getElementById(`font-card-${k}`);
+                if (k === fontKey) {
+                    card.className = 'text-left p-4 rounded-xl bg-dire/15 border-2 border-dire transition group relative overflow-hidden';
+                } else {
+                    card.className = 'text-left p-4 rounded-xl bg-abyssal/80 border border-direborder hover:border-starkwhite/50 transition group relative overflow-hidden';
+                }
+            });
+
+            // Update metadata labels & CSS block
+            document.getElementById('active-font-badge').textContent = cfg.name.toUpperCase();
+            document.getElementById('tester-font-spec').textContent = `FONT: ${cfg.name} ${cfg.weightLabel} // UPPERCASE`;
+            document.getElementById('spec-tier-1').textContent = `${cfg.name} ${cfg.weightLabel.split(' ')[0]}`;
+
+            const cssBlock = `:root {
+  /* 1. Brand Display (Active Selection) */
+  --font-display: ${cfg.css};
+
+  /* 2. Tactical UI & Stencil Badges */
+  --font-ui: 'Rajdhani', sans-serif;
+
+  /* 3. Coaching Guides & Body Copy */
+  --font-body: 'Inter', sans-serif;
+
+  /* 4. MMR Counters & Item Timings */
+  --font-mono: 'JetBrains Mono', monospace;
+}`;
+            document.getElementById('css-variables-preview').textContent = cssBlock;
+            showToast(`Switched Brand Display Font to ${cfg.name}`);
+        }
+
+        /**
+         * Live Custom Headline & Sub-badge Tester
+         */
+        function updateCustomTester() {
+            const headline = document.getElementById('custom-headline-input').value || 'SHATTER THE MMR TRENCH';
+            const subbadge = document.getElementById('custom-subbadge-input').value || 'IMMORTAL RANK ANALYTICS // +50 MMR';
+            document.getElementById('tester-headline-output').textContent = headline;
+            document.getElementById('tester-subbadge-output').textContent = subbadge;
+        }
+
+        /**
+         * Copy Ready-to-Use :root CSS Font Variables
+         */
+        function copyCSSVariables() {
+            const cssText = document.getElementById('css-variables-preview').textContent;
+            copyTextToClipboard(cssText, 'Copied :root CSS Typography Stack to clipboard!');
+        }
+
+        function updateZoom(val) {
+            currentZoom = parseFloat(val);
+            const mount = document.getElementById('hero-svg-mount');
+            if (mount) {
+                mount.style.transform = `scale(${currentZoom})`;
+            }
+            const label = document.getElementById('zoom-label');
+            if (label) {
+                label.textContent = `${Math.round(currentZoom * 100)}%`;
+            }
+        }
+
+        /**
+         * Core Reusable Central Emblem Defs & Group (240x240 local coordinate space)
+         * Combines:
+         * 1) UPRIGHT SQUARE Dota 2 Monolith Frame with subtle corner chamfers (x:24..216, y:24..216)
+         * 2) Top-Left & Bottom-Right Chiseled Stark White Ancient Monolith Pillars
+         * 3) BOTTOM-LEFT TO TOP-RIGHT Blazing Crimson Diagonal Slash (representing lane progression & upward MMR climb)
+         * 4) Upward-pointing Immortal Ascension Chevron/Arrowhead integrated at the Top-Right Apex
+         * 5) Shattered MMR Trench Shackles breaking off the bottom-left and lower flanks
+         */
+        function getEmblemInnerConstruct(isStencil = false) {
+            if (isStencil) {
+                const primaryFill = currentBg === 'light' ? '#0A0A0C' : '#F5F5F7';
+                return `
+                <!-- Upright Square Chamfered Monolith Frame (Stencil) -->
+                <path d="M36,24 L204,24 L216,36 L216,204 L204,216 L36,216 L24,204 L24,36 Z M44,38 L38,44 L38,196 L44,202 L196,202 L202,196 L202,44 L196,38 Z" fill="${primaryFill}"/>
+                
+                <!-- Top-Left Ancient Monolith Shard (Chiseled Triangle Territory) -->
+                <polygon points="48,48 162,48 130,80 94,88 80,130 48,162" fill="${primaryFill}"/>
+
+                <!-- Bottom-Right Ancient Monolith Shard (Chiseled Triangle Territory) -->
+                <polygon points="192,192 78,192 110,160 146,152 160,110 192,78" fill="${primaryFill}"/>
+
+                <!-- Shattered MMR Trench Chain Links (Breaking off Bottom-Left & Flanks) -->
+                <path d="M6,164 L36,148 L46,162 L24,176 L32,190 L56,176 L64,190 L28,212 L6,192 Z" fill="${primaryFill}"/>
+                <path d="M164,234 L148,204 L162,194 L176,216 L190,208 L176,184 L190,176 L212,212 L192,234 Z" fill="${primaryFill}"/>
+
+                <!-- BOTTOM-LEFT TO TOP-RIGHT Blazing Crimson Diagonal River & MMR Trajectory Slash -->
+                <polygon points="14,208 208,14 226,32 32,226" fill="#E62E25"/>
+
+                <!-- Top-Right Apex Immortal Ascension Arrowhead / Rank Crest -->
+                <polygon points="154,10 230,10 230,86 208,86 208,32 154,32" fill="#E62E25"/>
+                <polygon points="178,24 216,24 216,62 202,62 202,38 178,38" fill="${primaryFill}"/>
+
+                <!-- Flying Shatter Shards at Bottom-Left Chain Break -->
+                <polygon points="8,136 28,128 22,148" fill="#E62E25"/>
+                <polygon points="104,232 112,212 92,218" fill="#E62E25"/>
+                `;
+            }
+
+            return `
+            <defs>
+                <!-- Dire Crimson Core Gradient (Bottom-Left to Top-Right) -->
+                <linearGradient id="direGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#9E1B15"/>
+                    <stop offset="50%" stop-color="#E62E25"/>
+                    <stop offset="100%" stop-color="#FF3B30"/>
+                </linearGradient>
+
+                <!-- Dark Obsidian Citadel Fill -->
+                <linearGradient id="obsidianGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#181820"/>
+                    <stop offset="100%" stop-color="#0A0A0C"/>
+                </linearGradient>
+
+                <!-- Stark White / Ash Metallic Bevel -->
+                <linearGradient id="steelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FFFFFF"/>
+                    <stop offset="100%" stop-color="#D1D1D6"/>
+                </linearGradient>
+
+                <!-- Dire Ambient Glow Filter -->
+                <filter id="direGlow" x="-25%" y="-25%" width="150%" height="150%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#E62E25" flood-opacity="0.6"/>
+                </filter>
+            </defs>
+
+            <!-- Ambient Backplate Glow (FX Layer) -->
+            <g class="fx-layer">
+                <polygon points="34,20 206,20 220,34 220,206 206,220 34,220 20,206 20,34" fill="none" stroke="#E62E25" stroke-width="2.5" opacity="0.4" filter="url(#direGlow)"/>
+            </g>
+
+            <!-- 1. UPRIGHT SQUARE Fortified Dota 2 Monolith Base Frame -->
+            <polygon points="36,22 204,22 218,36 218,204 204,218 36,218 22,204 22,36" fill="url(#obsidianGrad)" stroke="#2A2A35" stroke-width="3.5"/>
+            <!-- Inner Fortified Upright Square Border -->
+            <polygon points="42,32 198,32 208,42 208,198 198,208 42,208 32,198 32,42" fill="#0A0A0C" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.85"/>
+            <!-- Corner Rivet Notches -->
+            <polygon points="32,56 40,48 40,76 32,76" fill="#E62E25"/>
+            <polygon points="208,184 200,192 200,164 208,164" fill="#E62E25"/>
+
+            <!-- 2. Chiseled Ancient Monolith Shards (Top-Left & Bottom-Right Territories) -->
+            <!-- Top-Left High-Ground Monolith Block -->
+            <g>
+                <polygon points="46,46 164,46 132,78 96,86 78,132 46,164" fill="url(#steelGrad)"/>
+                <!-- 3D Inner Facet Bevel -->
+                <polygon points="164,46 132,78 96,86 78,132 46,164 62,118 84,74" fill="#D1D1D6"/>
+                <polygon points="56,56 126,56 106,72 72,106 56,126" fill="#FFFFFF"/>
+            </g>
+
+            <!-- Bottom-Right High-Ground Monolith Block -->
+            <g>
+                <polygon points="194,194 76,194 108,162 144,154 162,108 194,76" fill="url(#steelGrad)"/>
+                <!-- 3D Inner Facet Bevel -->
+                <polygon points="76,194 108,162 144,154 162,108 194,76 178,122 156,166" fill="#D1D1D6"/>
+                <polygon points="184,184 114,184 134,168 168,134 184,114" fill="#FFFFFF"/>
+            </g>
+
+            <!-- 3. Shattered MMR Trench Shackles (Snapping at the Bottom-Left Origin & Flanks) -->
+            <!-- Left / Bottom-Left Broken Shackle Link -->
+            <g>
+                <path d="M4,160 L38,142 L50,156 L24,172 L34,186 L60,170 L70,184 L30,210 L6,188 Z" fill="url(#steelGrad)" stroke="#0A0A0C" stroke-width="3"/>
+                <polygon points="38,142 50,156 42,161 31,147" fill="#E62E25"/>
+                <polygon points="60,170 70,184 61,190 52,175" fill="#E62E25"/>
+            </g>
+            <!-- Bottom / Bottom-Right Broken Shackle Link -->
+            <g>
+                <path d="M160,236 L142,202 L156,190 L172,216 L186,206 L170,180 L184,170 L210,210 L188,234 Z" fill="url(#steelGrad)" stroke="#0A0A0C" stroke-width="3"/>
+                <polygon points="142,202 156,190 161,198 147,209" fill="#E62E25"/>
+                <polygon points="170,180 184,170 190,179 175,188" fill="#E62E25"/>
+            </g>
+
+            <!-- 4. BOTTOM-LEFT TO TOP-RIGHT Blazing Crimson Diagonal Slash -->
+            <g class="fx-layer" filter="url(#direGlow)">
+                <polygon points="12,206 206,12 228,34 34,228" fill="#E62E25" opacity="0.6"/>
+            </g>
+            <!-- Main Crimson Diagonal Blade (Bottom-Left [12,208] -> Top-Right [208,12]) -->
+            <polygon points="10,208 208,10 230,32 32,230" fill="url(#direGrad)" stroke="#0A0A0C" stroke-width="2"/>
+            <!-- Hot Core Energy Line along the 45° Bottom-Left to Top-Right Diagonal -->
+            <polygon points="24,210 210,24 216,30 30,216" fill="#FF3B30"/>
+            <polygon points="38,200 200,38 203,41 41,203" fill="#FFFFFF" opacity="0.85"/>
+
+            <!-- 5. Top-Right Apex Immortal Ascension Chevron / Arrowhead Crest -->
+            <g>
+                <!-- Outer Crimson Ascension Wing Capping Top-Right Corner -->
+                <polygon points="144,8 232,8 232,96 208,82 208,32 158,32" fill="url(#direGrad)" stroke="#0A0A0C" stroke-width="2.5"/>
+                <polygon points="154,12 228,12 228,86 218,80 218,22 160,22" fill="#FF3B30"/>
+                <!-- Inner Stark White Rank-Up Chevron Pointing into Top-Right Apex -->
+                <polygon points="172,22 218,22 218,68 202,58 202,38 182,38" fill="#FFFFFF" stroke="#0A0A0C" stroke-width="2"/>
+            </g>
+
+            <!-- Flying Crimson Shatter Shards at Bottom-Left Trench Break -->
+            <polygon points="6,130 28,122 20,144" fill="#FF3B30"/>
+            <polygon points="106,234 116,212 94,220" fill="#FF3B30"/>
+            <polygon points="8,224 26,208 16,232" fill="#FFFFFF"/>
+
+            <!-- Sacred Geometry Construction Grid Overlay (Upright Square + BL-to-TR Diagonal) -->
+            <g class="guide-layer" stroke="#FF3B30" stroke-width="0.9" stroke-dasharray="4 4" fill="none">
+                <rect x="22" y="22" width="196" height="196"/>
+                <rect x="32" y="32" width="176" height="176"/>
+                <!-- Bottom-Left to Top-Right Primary Trajectory Axis -->
+                <line x1="0" y1="240" x2="240" y2="0" stroke="#FFFFFF" stroke-width="1.2"/>
+                <line x1="0" y1="120" x2="240" y2="120"/>
+                <line x1="120" y1="0" x2="120" y2="240"/>
+                <circle cx="120" cy="120" r="98"/>
+            </g>
+            `;
+        }
+
+        /**
+         * Custom Vector Esports Typography for Clean Monumental "MMR" (NO SLASH ACROSS MMR)
+         * + Stenciled "SLAVE" Badge below
+         * Pure <path> and <polygon> geometry so exported SVGs never require external font files!
+         */
+        function getWordmarkConstruct(xOffset, yOffset, scale = 1, isStencil = false) {
+            const primaryText = currentBg === 'light' ? '#0A0A0C' : '#FFFFFF';
+            const secondaryText = isStencil ? primaryText : (currentBg === 'light' ? '#141418' : '#D1D1D6');
+            const badgeBg = isStencil ? 'none' : '#0A0A0C';
+            const bevelFill = isStencil ? primaryText : (currentBg === 'light' ? '#2A2A35' : '#D1D1D6');
+
+            return `
+            <g transform="translate(${xOffset}, ${yOffset}) scale(${scale})">
+                <!-- CLEAN, UN-SLASHED MONUMENTAL "MMR" CUSTOM VECTOR PATHS -->
+                <g fill="${primaryText}">
+                    <!-- First 'M' (Upright, Heavy Chiseled Esports Block: x: 0 -> 114) -->
+                    <path d="M0,110 L0,0 L32,0 L57,54 L82,0 L114,0 L114,110 L84,110 L84,44 L64,86 L50,86 L30,44 L30,110 Z"/>
+                    <!-- Second 'M' (Upright, Heavy Chiseled Esports Block: x: 130 -> 244) -->
+                    <path d="M130,110 L130,0 L162,0 L187,54 L212,0 L244,0 L244,110 L214,110 L214,44 L194,86 L180,86 L160,44 L160,110 Z"/>
+                    <!-- Aggressive Chiseled 'R' (x: 260 -> 368) -->
+                    <path d="M260,110 L260,0 L344,0 L366,22 L366,52 L344,70 L368,110 L334,110 L312,72 L290,72 L290,110 Z M290,48 L330,48 L338,40 L338,28 L330,22 L290,22 Z"/>
+                </g>
+
+                <!-- Subtle Chiseled Bottom-Right Corner Accent on 'R' Leg (No slash across letters) -->
+                <polygon points="354,88 368,110 350,110" fill="${bevelFill}"/>
+
+                <!-- Sub-bar Divider & "SLAVE" Aggressive Stencil Lockup -->
+                <g transform="translate(0, 124)">
+                    <!-- Fortified Upright Rectangular Frame with Chamfered Ends -->
+                    <polygon points="8,6 360,6 368,14 368,50 360,58 8,58 0,50 0,14" fill="${badgeBg}" stroke="#E62E25" stroke-width="2.5"/>
+                    <!-- Left & Right Solid Crimson Guard Blocks -->
+                    <polygon points="0,14 8,6 24,6 24,58 8,58 0,50" fill="#E62E25"/>
+                    <polygon points="344,6 360,6 368,14 368,50 360,58 344,58" fill="#E62E25"/>
+
+                    <!-- Stenciled Vector "SLAVE" Letterforms (Pure Geometric Paths) -->
+                    <g fill="#E62E25" transform="translate(46, 17)">
+                        <!-- S -->
+                        <path d="M0,22 L36,22 L36,15 L4,15 L4,0 L46,0 L46,7 L14,7 L14,11 L46,11 L46,30 L0,30 Z"/>
+                        <!-- L -->
+                        <path d="M62,0 L74,0 L74,22 L106,22 L106,30 L62,30 Z"/>
+                        <!-- A (Stenciled Split Apex) -->
+                        <path d="M118,30 L134,0 L150,0 L166,30 L153,30 L142,8 L131,30 Z M133,20 L151,20 L154,27 L130,27 Z"/>
+                        <!-- V (Chevron Blade) -->
+                        <path d="M178,0 L191,0 L200,20 L209,0 L222,0 L206,30 L194,30 Z"/>
+                        <!-- E (3-Bar Stencil) -->
+                        <path d="M236,0 L276,0 L276,7 L248,7 L248,30 L236,30 Z M252,11 L274,11 L274,18 L252,18 Z M252,23 L276,23 L276,30 L252,30 Z"/>
+                    </g>
+                </g>
+
+                <!-- Analytics Tagline Stamp -->
+                <text x="2" y="204" fill="${secondaryText}" font-family="'Chakra Petch', sans-serif" font-weight="700" font-size="13" letter-spacing="5.5" opacity="0.85">
+                    BREAK THE TRENCH // DOTA 2 ANALYTICS
+                </text>
+
+                <!-- Construction Guide Overlay -->
+                <g class="guide-layer" stroke="#FF3B30" stroke-width="0.75" stroke-dasharray="4 4" fill="none">
+                    <rect x="0" y="0" width="368" height="110"/>
+                    <rect x="0" y="130" width="368" height="52"/>
+                </g>
+            </g>
+            `;
+        }
+
+        /**
+         * Complete Standalone SVG Generator for all 4 Variants
+         */
+        function generateSVG(variant, includeClasses = true) {
+            const stateClasses = includeClasses
+                ? `${!fxEnabled ? 'svg-fx-hidden' : ''} ${guidesEnabled ? 'svg-guides-visible' : ''}`
+                : '';
+
+            if (variant === 'stacked') {
+                return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 470" width="100%" height="100%" class="max-h-[370px] ${stateClasses}">
+    <!-- MMRSlave Primary Stacked Lockup (Upright Square + BL-to-TR Diagonal + Clean MMR) -->
+    <g transform="translate(140, 10)">
+        ${getEmblemInnerConstruct(false)}
+    </g>
+    ${getWordmarkConstruct(76, 256, 1.0, false)}
+</svg>`;
+            }
+
+            if (variant === 'horizontal') {
+                return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 260" width="100%" height="100%" class="max-h-[260px] ${stateClasses}">
+    <!-- MMRSlave Horizontal Lockup (Upright Square + BL-to-TR Diagonal + Clean MMR) -->
+    <g transform="translate(25, 10)">
+        ${getEmblemInnerConstruct(false)}
+    </g>
+    ${getWordmarkConstruct(295, 32, 1.15, false)}
+</svg>`;
+            }
+
+            if (variant === 'emblem') {
+                return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="100%" height="100%" class="max-h-[260px] ${stateClasses}">
+    <!-- MMRSlave Standalone Upright Square App Emblem -->
+    ${getEmblemInnerConstruct(false)}
+</svg>`;
+            }
+
+            if (variant === 'stencil') {
+                return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 260" width="100%" height="100%" class="max-h-[260px] ${stateClasses}">
+    <!-- MMRSlave Minimalist 2-Tone Flat Stencil -->
+    <g transform="translate(25, 10)">
+        ${getEmblemInnerConstruct(true)}
+    </g>
+    ${getWordmarkConstruct(295, 32, 1.15, true)}
+</svg>`;
+            }
+        }
+
+        /**
+         * Render all canvases on load or state change
+         */
+        function renderAll() {
+            // Render Hero Stage
+            const heroMount = document.getElementById('hero-svg-mount');
+            heroMount.innerHTML = generateSVG(currentHeroVariant, true);
+
+            // Update Hero viewBox metadata
+            const dims = {
+                stacked: 'VIEWBOX: 0 0 520 470 // PRIMARY STACKED CREST',
+                horizontal: 'VIEWBOX: 0 0 820 260 // HORIZONTAL LOCKUP',
+                emblem: 'VIEWBOX: 0 0 240 240 // UPRIGHT SQUARE EMBLEM',
+                stencil: 'VIEWBOX: 0 0 820 260 // MONOCHROME STENCIL'
+            };
+            document.getElementById('hero-dimensions').textContent = dims[currentHeroVariant];
+
+            // Render Secondary Grid Cards
+            document.getElementById('card-canvas-stacked').innerHTML = generateSVG('stacked', true);
+            document.getElementById('card-canvas-horizontal').innerHTML = generateSVG('horizontal', true);
+            document.getElementById('ios-icon-mount').innerHTML = generateSVG('emblem', true);
+            document.getElementById('avatar-icon-mount').innerHTML = generateSVG('emblem', true);
+            document.getElementById('card-canvas-stencil').innerHTML = generateSVG('stencil', true);
+
+            // Render Upright Square Emblem inside the Live UI Kit Mockup Header
+            const uiEmblemMount = document.getElementById('ui-mockup-emblem');
+            if (uiEmblemMount) {
+                uiEmblemMount.innerHTML = generateSVG('emblem', false);
+            }
+        }
+
+        /**
+         * Switch Active Hero Variant Tab
+         */
+        function selectHeroVariant(variant) {
+            currentHeroVariant = variant;
+            const tabs = ['stacked', 'horizontal', 'emblem', 'stencil'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === variant) {
+                    btn.className = 'px-3 py-1.5 rounded-md text-xs font-display font-bold uppercase tracking-wider bg-dire text-starkwhite transition shadow';
+                } else {
+                    btn.className = 'px-3 py-1.5 rounded-md text-xs font-display font-bold uppercase tracking-wider text-ashwhite hover:text-white transition';
+                }
+            });
+            renderAll();
+        }
+
+        /**
+         * Switch Canvas Background Mode (Abyssal, Dire Slate, Stark White)
+         */
+        function setCanvasBg(mode) {
+            currentBg = mode;
+            const bgClasses = {
+                dark: 'bg-grid-dark',
+                slate: 'bg-grid-slate',
+                light: 'bg-grid-light'
+            };
+
+            const heroCanvas = document.getElementById('hero-canvas');
+            heroCanvas.classList.remove('bg-grid-dark', 'bg-grid-slate', 'bg-grid-light');
+            heroCanvas.classList.add(bgClasses[mode]);
+
+            document.querySelectorAll('.preview-canvas').forEach(el => {
+                el.classList.remove('bg-grid-dark', 'bg-grid-slate', 'bg-grid-light');
+                el.classList.add(bgClasses[mode]);
+            });
+
+            // Update Button States
+            ['dark', 'slate', 'light'].forEach(m => {
+                const btn = document.getElementById(`btn-bg-${m}`);
+                if (m === mode) {
+                    btn.className = 'px-2.5 py-1 rounded text-xs font-medium bg-dire text-starkwhite shadow transition';
+                } else {
+                    btn.className = 'px-2.5 py-1 rounded text-xs font-medium text-ashwhite hover:text-white transition';
+                }
+            });
+
+            renderAll();
+        }
+
+        /**
+         * Toggle Ambient Dire Glow FX
+         */
+        function toggleFX() {
+            fxEnabled = !fxEnabled;
+            document.getElementById('fx-status').textContent = fxEnabled ? 'ON' : 'FLAT';
+            document.getElementById('fx-dot').className = fxEnabled
+                ? 'w-2 h-2 rounded-full bg-dire-light animate-pulse'
+                : 'w-2 h-2 rounded-full bg-ashwhite/40';
+            document.getElementById('ambient-backdrop').style.opacity = fxEnabled ? '1' : '0';
+            renderAll();
+        }
+
+        /**
+         * Toggle Sacred Geometry Grid Overlay
+         */
+        function toggleGuides() {
+            guidesEnabled = !guidesEnabled;
+            document.getElementById('guides-status').textContent = guidesEnabled ? 'ON' : 'OFF';
+            renderAll();
+        }
+
+        /**
+         * Copy Clean Production SVG Code to Clipboard
+         */
+        function copyVariantSVG(variant) {
+            const rawSvg = generateSVG(variant, false);
+            copyTextToClipboard(rawSvg, `Copied ${variant.toUpperCase()} SVG code to clipboard!`);
+        }
+
+        /**
+         * Download Standalone .SVG File
+         */
+        function downloadVariantSVG(variant) {
+            const rawSvg = generateSVG(variant, false);
+            const blob = new Blob([rawSvg], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `mmrslave-logo-${variant}.svg`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast(`Downloaded mmrslave-logo-${variant}.svg`);
+        }
+
+        /**
+         * Copy Color Swatch HEX
+         */
+        function copyHex(hex) {
+            copyTextToClipboard(hex, `Copied color swatch ${hex} to clipboard!`);
+        }
+
+        /**
+         * Inspect Raw SVG Source Modal
+         */
+        function openCodeModal(variant) {
+            const modal = document.getElementById('code-modal');
+            const area = document.getElementById('modal-code-area');
+            const title = document.getElementById('modal-title');
+            title.textContent = `Raw SVG Source // mmrslave-logo-${variant}.svg`;
+            area.value = generateSVG(variant, false);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeCodeModal() {
+            const modal = document.getElementById('code-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function copyModalCode() {
+            const area = document.getElementById('modal-code-area');
+            copyTextToClipboard(area.value, 'Raw SVG source copied to clipboard!');
+        }
+
+        /**
+         * Reliable iframe-safe clipboard helper + Toast notification
+         */
+        function copyTextToClipboard(text, message) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(message);
+        }
+
+        let toastTimer = null;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-message');
+            msgEl.textContent = message;
+            toast.classList.remove('opacity-0', 'translate-y-3');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-3');
+            }, 2600);
+        }
+
+        // Close modal on Escape key
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeCodeModal();
+        });
+
+        // Initialize Studio on load
+        window.onload = function() {
+            renderAll();
+        };
+    </script>
+</body>
+</html>

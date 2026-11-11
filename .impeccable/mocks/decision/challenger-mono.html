@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<style>
+:root{--bg:#fafafa;--ink:#18181b;--mid:#71717a;--line:#e4e4e7;--acc:#0f9f8f;--neg:#c2410c}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,"Segoe UI",sans-serif}
+header{height:60px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:28px;padding:0 40px}
+header b{font-size:17px;letter-spacing:-.01em}
+header span{color:var(--mid)}
+header .btn{margin-left:auto;border:1px solid var(--ink);border-radius:8px;padding:7px 14px;font-weight:600}
+.wrap{max-width:1180px;margin:0 auto;padding:36px 0;display:flex;flex-direction:column;gap:28px}
+.top{display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:end}
+.top h1{font:650 38px/1.15 system-ui;letter-spacing:-.02em}
+.top p{color:var(--mid);margin-top:10px;font-size:16px}
+.spark{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff}
+.spark small{color:var(--mid)}
+.row{display:grid;grid-template-columns:90px 1fr 220px;gap:28px;padding:22px 0;border-top:1px solid var(--line);align-items:center}
+.row .t{font:600 22px system-ui;font-variant-numeric:tabular-nums}
+.row h3{font:600 18px system-ui}
+.row p{color:var(--mid);margin-top:4px}
+.row .proof{border:1px solid var(--line);border-radius:12px;background:#fff;height:120px;display:grid;grid-template-columns:120px 1fr;overflow:hidden}
+.row .proof .k{display:flex;flex-direction:column;justify-content:center;padding:0 14px;color:var(--neg);font-weight:650;font-size:20px}
+.row .proof .k small{color:var(--mid);font-weight:400;font-size:12px}
+.tabs{display:flex;gap:24px;color:var(--mid)}.tabs .on{color:var(--ink);font-weight:600;border-bottom:2px solid var(--acc)}
+</style></head><body>
+<header><b>MMRSlave</b><span>Games</span><span>Coach brain</span><div class="btn">Fetch latest games</div></header>
+<div class="wrap">
+  <div class="top">
+    <div><h1>You won the farm race, then kept dying alone in their jungle.</h1><p>Spectre, pos 1 · 17/11/27 · lost at 78:51 · four deaths cost the game</p></div>
+    <div class="spark"><small>Your team's win chance</small>
+      <svg width="330" height="80" viewBox="0 0 330 80"><line x1="0" y1="40" x2="330" y2="40" stroke="#e4e4e7"/><path d="M0 40 C30 36 60 30 90 26 S150 22 170 32 S210 52 230 46 S270 30 290 52 S315 70 330 76" fill="none" stroke="#18181b" stroke-width="2"/><circle cx="170" cy="32" r="4" fill="#0f9f8f"/></svg></div>
+  </div>
+  <div class="tabs"><span class="on">Mistakes</span><span>Teammates</span><span>vs Immortal</span><span>Laning &amp; items</span><span>Practice</span></div>
+  <div>
+    <div class="row"><span class="t">22:14</span><div><h3>Alone in the enemy safe-lane jungle with 3 enemies missing</h3><p>No ward within range. An Immortal Spectre farms your own jungle here 41% of the time.</p></div>
+      <div class="proof"><svg viewBox="0 0 120 120"><rect width="120" height="120" fill="#f4f4f5"/><path d="M16 90V16H90M34 104H104V34M28 96L96 28" stroke="#d4d4d8" stroke-width="4" fill="none"/><circle cx="80" cy="68" r="6" fill="none" stroke="#c2410c" stroke-width="2"/></svg><div class="k">−9%<small>win chance</small></div></div></div>
+    <div class="row"><span class="t">58:40</span><div><h3>Farmed their off-lane jungle after your team lost a fight</h3><p>Two allies dead, their carry alive with buyback. Risk was above 30% for 18 seconds.</p></div>
+      <div class="proof"><svg viewBox="0 0 120 120"><rect width="120" height="120" fill="#f4f4f5"/><path d="M16 90V16H90M34 104H104V34M28 96L96 28" stroke="#d4d4d8" stroke-width="4" fill="none"/><circle cx="88" cy="88" r="6" fill="none" stroke="#c2410c" stroke-width="2"/></svg><div class="k">−12%<small>win chance</small></div></div></div>
+    <div class="row"><span class="t">31:05</span><div><h3>Manta Style came 9 minutes after the Immortal median</h3><p>Radiance first delayed your fighting item; Immortal Spectres take Manta at 22:40.</p></div>
+      <div class="proof"><div style="grid-column:1/3;display:flex;align-items:center;padding:0 16px;color:#71717a">22:40 Immortal · 31:05 you</div></div></div>
+  </div>
+</div>
+</body></html>

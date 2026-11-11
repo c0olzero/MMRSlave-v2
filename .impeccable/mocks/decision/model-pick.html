@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1e1f22;--panel:#27282c;--line:#36373c;--ink:#f0ece2;--dim:#9a978f;--bl:#e0503c;--mi:#e8933a;--in:#e6c445;--gd:#3fb59a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,"Segoe UI",sans-serif;display:grid;grid-template-columns:72px 1fr 520px}
+nav{background:#161719;display:flex;flex-direction:column;align-items:center;gap:22px;padding:20px 0}
+nav i{width:34px;height:34px;border-radius:8px;background:var(--panel)}
+nav i.on{background:var(--ink)}
+.center{display:grid;grid-template-columns:44px 1fr;gap:20px;padding:26px 24px 26px 28px;min-width:0}
+.bar{border-radius:6px;overflow:hidden;display:flex;flex-direction:column;background:#111}
+.bar .them{flex:0 0 64%;background:#3a3b40}.bar .you{flex:1;background:var(--ink)}
+.col{display:flex;flex-direction:column;gap:16px;min-width:0}
+h1{font:700 34px/1.1 system-ui}
+.sub{color:var(--dim)}
+.summary{background:var(--panel);border-radius:10px;padding:16px 18px;font-size:16px}
+.moves{display:flex;flex-direction:column;background:var(--panel);border-radius:10px;overflow:hidden}
+.mv{display:grid;grid-template-columns:60px 34px 1fr 64px;gap:10px;padding:11px 16px;border-top:1px solid var(--line);align-items:baseline}
+.mv:first-child{border-top:0}
+.mv .t{font:500 14px "Roboto Mono";color:var(--dim)}
+.mv .g{font:700 16px "Roboto Mono"}
+.mv .e{text-align:right;font:500 14px "Roboto Mono"}
+.mv.sel{background:#33343a}
+.bl{color:var(--bl)}.mi{color:var(--mi)}.in{color:var(--in)}.gd{color:var(--gd)}
+.legend{display:flex;gap:18px;color:var(--dim);font-size:13px}
+aside{background:var(--panel);padding:26px;display:flex;flex-direction:column;gap:14px}
+aside h2{font:600 13px system-ui;text-transform:uppercase;letter-spacing:.12em;color:var(--dim)}
+.tabs{display:flex;gap:6px}.tabs span{padding:6px 12px;border-radius:6px;background:#1e1f22;color:var(--dim)}.tabs span.on{background:var(--ink);color:var(--bg)}
+</style></head><body>
+<nav><i class="on"></i><i></i><i></i><i></i></nav>
+<section class="center">
+  <div class="bar"><div class="them"></div><div class="you"></div></div>
+  <div class="col">
+    <div><h1>Spectre — 17/11/27, lost at 78:51</h1><div class="sub">Game review · 11 deaths reviewed · 3 blunders · 2 mistakes</div></div>
+    <div class="summary">You won the farm race but kept walking into their jungle alone with three heroes missing. Four deaths cost your team the game.</div>
+    <div class="legend"><span class="bl">?? blunder</span><span class="mi">? mistake</span><span class="in">?! inaccuracy</span><span class="gd">! great</span></div>
+    <div class="moves">
+      <div class="mv"><span class="t">08:40</span><span class="g gd">!</span><span>First kill on Naga in your safe lane</span><span class="e gd">+3%</span></div>
+      <div class="mv"><span class="t">12:24</span><span class="g in">?!</span><span>Walked into Techies mines in your safe lane</span><span class="e in">−4%</span></div>
+      <div class="mv sel"><span class="t">22:14</span><span class="g bl">??</span><span>Enemy safe-lane jungle alone, 3 enemies missing, no ward</span><span class="e bl">−9%</span></div>
+      <div class="mv"><span class="t">31:05</span><span class="g mi">?</span><span>Manta 9 minutes after the Immortal median</span><span class="e mi">items</span></div>
+      <div class="mv"><span class="t">44:52</span><span class="g gd">!</span><span>Haunt turned the fight at Roshan</span><span class="e gd">+11%</span></div>
+      <div class="mv"><span class="t">58:40</span><span class="g bl">??</span><span>Farmed their off-lane jungle after your team lost a fight</span><span class="e bl">−12%</span></div>
+      <div class="mv"><span class="t">71:18</span><span class="g bl">??</span><span>No buyback when they pushed high ground</span><span class="e bl">−15%</span></div>
+    </div>
+  </div>
+</section>
+<aside>
+  <div class="tabs"><span class="on">Board</span><span>Team</span><span>vs Immortal</span><span>Practice</span></div>
+  <h2>Position at 22:14</h2>
+  <svg width="468" height="468" viewBox="0 0 468 468">
+    <rect width="468" height="468" rx="8" fill="#1e1f22"/>
+    <path d="M62 340 L62 62 L340 62 M128 406 L406 406 L406 128 M104 364 L364 104" stroke="#3a3b40" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <path d="M70 260 C170 250 220 210 234 234 S300 210 396 204" stroke="#2f4f63" stroke-width="22" fill="none"/>
+    <g fill="#f0ece2"><circle cx="300" cy="330" r="9"/><circle cx="216" cy="258" r="9"/><circle cx="176" cy="310" r="9"/></g>
+    <g fill="#e0503c"><circle cx="310" cy="236" r="9"/><circle cx="270" cy="222" r="9"/><circle cx="340" cy="262" r="9"/></g>
+    <circle cx="310" cy="266" r="18" fill="none" stroke="#e0503c" stroke-width="3"/>
+    <path d="M260 340 C240 360 210 370 186 382" stroke="#3fb59a" stroke-width="3" fill="none" stroke-dasharray="6 6"/>
+  </svg>
+  <div class="sub">Best move: back to your own jungle (an Immortal Spectre goes there 41% of the time)</div>
+</aside>
+</body></html>

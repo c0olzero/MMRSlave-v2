@@ -1,0 +1,885 @@
+{
+ "schemaVersion": 2,
+ "generatedAt": "2026-11-11T12:00:00Z",
+ "title": "Design System: MMRSlave",
+ "extensions": {
+  "colorMeta": {
+   "obsidian-ground": {
+    "role": "neutral",
+    "displayName": "Obsidian Ground",
+    "canonical": "oklch(14.6% 0.004 285.9)",
+    "tonalRamp": [
+     "#0b0b0b",
+     "#252526",
+     "#424244",
+     "#616163",
+     "#828285",
+     "#a5a5a7",
+     "#c9c9cb",
+     "#eeeeef"
+    ]
+   },
+   "obsidian-board": {
+    "role": "neutral",
+    "displayName": "Obsidian Board",
+    "canonical": "oklch(19.3% 0.008 285.6)",
+    "tonalRamp": [
+     "#0b0b0c",
+     "#252527",
+     "#414245",
+     "#616165",
+     "#828287",
+     "#a4a4aa",
+     "#c8c9cd",
+     "#eeeef0"
+    ]
+   },
+   "obsidian-raise": {
+    "role": "neutral",
+    "displayName": "Obsidian Raise",
+    "canonical": "oklch(22.5% 0.014 285.3)",
+    "tonalRamp": [
+     "#0b0b0c",
+     "#252528",
+     "#414147",
+     "#606068",
+     "#81818a",
+     "#a4a4ad",
+     "#c8c8cf",
+     "#eeeef2"
+    ]
+   },
+   "obsidian-rule": {
+    "role": "neutral",
+    "displayName": "Obsidian Rule",
+    "canonical": "oklch(29.0% 0.020 285.1)",
+    "tonalRamp": [
+     "#0b0b0c",
+     "#242429",
+     "#41414a",
+     "#60606c",
+     "#81818e",
+     "#a3a4b1",
+     "#c8c8d2",
+     "#eeeef4"
+    ]
+   },
+   "steel-ink": {
+    "role": "neutral",
+    "displayName": "Steel Ink",
+    "canonical": "oklch(97.1% 0.003 286.4)",
+    "tonalRamp": [
+     "#0b0b0b",
+     "#252526",
+     "#424243",
+     "#616163",
+     "#828284",
+     "#a5a5a6",
+     "#c9c9ca",
+     "#eeeeef"
+    ]
+   },
+   "steel-dim": {
+    "role": "neutral",
+    "displayName": "Steel Dim",
+    "canonical": "oklch(78.9% 0.014 286.1)",
+    "tonalRamp": [
+     "#0b0b0c",
+     "#252528",
+     "#414148",
+     "#606069",
+     "#81818b",
+     "#a4a4ad",
+     "#c8c8d0",
+     "#eeeef2"
+    ]
+   },
+   "steel-faint": {
+    "role": "neutral",
+    "displayName": "Steel Faint",
+    "canonical": "oklch(62.1% 0.019 285.8)",
+    "tonalRamp": [
+     "#0b0b0c",
+     "#242429",
+     "#41414a",
+     "#60606b",
+     "#81818e",
+     "#a4a4b0",
+     "#c8c8d2",
+     "#eeeef4"
+    ]
+   },
+   "plate-dim": {
+    "role": "neutral",
+    "displayName": "Plate Dim",
+    "canonical": "oklch(41.3% 0.018 285.6)",
+    "tonalRamp": [
+     "#0b0b0c",
+     "#252529",
+     "#414149",
+     "#60606b",
+     "#81818d",
+     "#a4a4af",
+     "#c8c8d2",
+     "#eeeef3"
+    ]
+   },
+   "dire-crimson": {
+    "role": "primary",
+    "displayName": "Dire Crimson",
+    "canonical": "oklch(60.0% 0.219 28.7)",
+    "tonalRamp": [
+     "#160605",
+     "#470d09",
+     "#800505",
+     "#b41813",
+     "#e14034",
+     "#fe7565",
+     "#fdb4a9",
+     "#ffe9e5"
+    ]
+   },
+   "crimson-fill": {
+    "role": "primary",
+    "displayName": "Crimson Fill",
+    "canonical": "oklch(55.5% 0.205 28.8)",
+    "tonalRamp": [
+     "#160605",
+     "#470d08",
+     "#800505",
+     "#b41813",
+     "#e14033",
+     "#fe7564",
+     "#fdb4a9",
+     "#ffe9e5"
+    ]
+   },
+   "crimson-hi": {
+    "role": "primary",
+    "displayName": "Crimson Hi",
+    "canonical": "oklch(67.2% 0.216 28.0)",
+    "tonalRamp": [
+     "#160605",
+     "#470c09",
+     "#800407",
+     "#b41817",
+     "#e13f36",
+     "#fe7466",
+     "#fdb4a9",
+     "#ffe9e5"
+    ]
+   },
+   "crimson-lo": {
+    "role": "primary",
+    "displayName": "Crimson Lo",
+    "canonical": "oklch(45.3% 0.167 28.7)",
+    "tonalRamp": [
+     "#140706",
+     "#42130f",
+     "#771c16",
+     "#a83127",
+     "#d45244",
+     "#f77b6b",
+     "#fdb4a9",
+     "#ffe9e5"
+    ]
+   },
+   "on-crimson": {
+    "role": "primary",
+    "displayName": "On Crimson",
+    "canonical": "oklch(100.0% 0.000 89.9)",
+    "tonalRamp": [
+     "#0b0b0b",
+     "#252525",
+     "#424242",
+     "#616161",
+     "#828282",
+     "#a5a5a5",
+     "#c9c9c9",
+     "#eeeeee"
+    ]
+   },
+   "moment-yellow": {
+    "role": "secondary",
+    "displayName": "Moment Yellow",
+    "canonical": "oklch(87.7% 0.143 96.4)",
+    "tonalRamp": [
+     "#0e0b03",
+     "#2d2400",
+     "#4e4100",
+     "#71600d",
+     "#988110",
+     "#bda430",
+     "#ddc978",
+     "#f9efc4"
+    ]
+   },
+   "enemy-red": {
+    "role": "secondary",
+    "displayName": "Enemy Red",
+    "canonical": "oklch(71.1% 0.146 27.4)",
+    "tonalRamp": [
+     "#130806",
+     "#3f1613",
+     "#71241f",
+     "#a13a33",
+     "#cb5a50",
+     "#ee8175",
+     "#feb3a9",
+     "#fee9e6"
+    ]
+   },
+   "team-green": {
+    "role": "secondary",
+    "displayName": "Team Green",
+    "canonical": "oklch(79.9% 0.119 142.7)",
+    "tonalRamp": [
+     "#070d07",
+     "#142b13",
+     "#214e1f",
+     "#367133",
+     "#559451",
+     "#7bb777",
+     "#a9d8a5",
+     "#ddf7da"
+    ]
+   },
+   "water-blue": {
+    "role": "secondary",
+    "displayName": "Water Blue",
+    "canonical": "oklch(75.8% 0.090 244.7)",
+    "tonalRamp": [
+     "#070c10",
+     "#132737",
+     "#1f4564",
+     "#33668e",
+     "#5188b5",
+     "#78abd6",
+     "#a6cef1",
+     "#e1f1ff"
+    ]
+   },
+   "you-curve": {
+    "role": "tertiary",
+    "displayName": "You Curve",
+    "canonical": "oklch(76.3% 0.123 154.8)",
+    "tonalRamp": [
+     "#050d08",
+     "#0a2d19",
+     "#01502b",
+     "#127442",
+     "#389761",
+     "#65ba85",
+     "#9adbb0",
+     "#d6f9e0"
+    ]
+   },
+   "you-curve-deep": {
+    "role": "tertiary",
+    "displayName": "You Curve Deep",
+    "canonical": "oklch(60.2% 0.109 157.0)",
+    "tonalRamp": [
+     "#060d08",
+     "#0d2c1b",
+     "#0e4f30",
+     "#1f7249",
+     "#419668",
+     "#6cb88c",
+     "#9ed9b5",
+     "#d8f8e3"
+    ]
+   },
+   "you-curve-pale": {
+    "role": "tertiary",
+    "displayName": "You Curve Pale",
+    "canonical": "oklch(88.7% 0.069 156.3)",
+    "tonalRamp": [
+     "#080d09",
+     "#182a1f",
+     "#294a36",
+     "#416c52",
+     "#5f8f71",
+     "#84b295",
+     "#b0d4bc",
+     "#e1f4e7"
+    ]
+   },
+   "immortal-curve-deep": {
+    "role": "tertiary",
+    "displayName": "Immortal Curve Deep",
+    "canonical": "oklch(70.7% 0.131 86.5)",
+    "tonalRamp": [
+     "#0f0b03",
+     "#312200",
+     "#543e01",
+     "#795d0e",
+     "#a27c10",
+     "#c69f40",
+     "#e4c580",
+     "#feedc8"
+    ]
+   },
+   "immortal-curve-pale": {
+    "role": "tertiary",
+    "displayName": "Immortal Curve Pale",
+    "canonical": "oklch(93.6% 0.077 98.0)",
+    "tonalRamp": [
+     "#0c0b06",
+     "#292511",
+     "#4a421b",
+     "#6c622e",
+     "#8e834b",
+     "#b1a672",
+     "#d2caa1",
+     "#f4efd8"
+    ]
+   },
+   "hp-green": {
+    "role": "tertiary",
+    "displayName": "HP Green",
+    "canonical": "oklch(77.0% 0.180 140.1)",
+    "tonalRamp": [
+     "#050e04",
+     "#0a2e03",
+     "#185008",
+     "#227506",
+     "#399a20",
+     "#66be53",
+     "#9ade8c",
+     "#d6fbce"
+    ]
+   },
+   "hp-enemy": {
+    "role": "tertiary",
+    "displayName": "HP Enemy",
+    "canonical": "oklch(63.4% 0.174 28.4)",
+    "tonalRamp": [
+     "#150706",
+     "#43120e",
+     "#791913",
+     "#ab2d25",
+     "#d64e42",
+     "#f97869",
+     "#ffb3a8",
+     "#fee9e6"
+    ]
+   },
+   "mana-blue": {
+    "role": "tertiary",
+    "displayName": "Mana Blue",
+    "canonical": "oklch(64.9% 0.149 257.1)",
+    "tonalRamp": [
+     "#060b15",
+     "#0e2544",
+     "#13407c",
+     "#2460af",
+     "#4282da",
+     "#6aa6fa",
+     "#a9ccfc",
+     "#e5efff"
+    ]
+   },
+   "ash-ground": {
+    "role": "neutral",
+    "displayName": "Ash Ground",
+    "canonical": "oklch(95.9% 0.004 286.3)",
+    "tonalRamp": [
+     "#0b0b0b",
+     "#252526",
+     "#424243",
+     "#616163",
+     "#828285",
+     "#a5a5a7",
+     "#c9c9cb",
+     "#eeeeef"
+    ]
+   },
+   "ash-board": {
+    "role": "neutral",
+    "displayName": "Ash Board",
+    "canonical": "oklch(100.0% 0.000 89.9)",
+    "tonalRamp": [
+     "#0b0b0b",
+     "#252525",
+     "#424242",
+     "#616161",
+     "#828282",
+     "#a5a5a5",
+     "#c9c9c9",
+     "#eeeeee"
+    ]
+   },
+   "ash-raise": {
+    "role": "neutral",
+    "displayName": "Ash Raise",
+    "canonical": "oklch(92.1% 0.008 286.2)",
+    "tonalRamp": [
+     "#0b0b0c",
+     "#252527",
+     "#424245",
+     "#616165",
+     "#828287",
+     "#a4a4aa",
+     "#c9c9cd",
+     "#eeeef0"
+    ]
+   },
+   "ash-rule": {
+    "role": "neutral",
+    "displayName": "Ash Rule",
+    "canonical": "oklch(85.7% 0.010 286.2)",
+    "tonalRamp": [
+     "#0b0b0c",
+     "#252527",
+     "#414146",
+     "#616166",
+     "#828288",
+     "#a4a4aa",
+     "#c8c8ce",
+     "#eeeef1"
+    ]
+   },
+   "ash-dim": {
+    "role": "neutral",
+    "displayName": "Ash Dim",
+    "canonical": "oklch(40.2% 0.018 285.5)",
+    "tonalRamp": [
+     "#0b0b0c",
+     "#242529",
+     "#414149",
+     "#60606b",
+     "#81818d",
+     "#a4a4b0",
+     "#c8c8d2",
+     "#eeeef3"
+    ]
+   },
+   "ash-faint": {
+    "role": "neutral",
+    "displayName": "Ash Faint",
+    "canonical": "oklch(49.0% 0.019 285.7)",
+    "tonalRamp": [
+     "#0b0b0c",
+     "#242529",
+     "#41414a",
+     "#60606b",
+     "#81818e",
+     "#a4a4b0",
+     "#c8c8d2",
+     "#eeeef3"
+    ]
+   },
+   "deep-crimson": {
+    "role": "primary",
+    "displayName": "Deep Crimson",
+    "canonical": "oklch(53.0% 0.197 28.9)",
+    "tonalRamp": [
+     "#160605",
+     "#460d09",
+     "#7f0906",
+     "#b31c15",
+     "#e04235",
+     "#fc7666",
+     "#fdb4a9",
+     "#fee9e5"
+    ]
+   },
+   "deep-crimson-lo": {
+    "role": "primary",
+    "displayName": "Deep Crimson Lo",
+    "canonical": "oklch(38.3% 0.140 28.7)",
+    "tonalRamp": [
+     "#130806",
+     "#3e1713",
+     "#70261f",
+     "#9e3d33",
+     "#c85d50",
+     "#eb8376",
+     "#fcb4a9",
+     "#fee9e5"
+    ]
+   },
+   "moment-amber": {
+    "role": "secondary",
+    "displayName": "Moment Amber",
+    "canonical": "oklch(47.3% 0.099 77.4)",
+    "tonalRamp": [
+     "#0f0a05",
+     "#31220a",
+     "#583c07",
+     "#7e5916",
+     "#a37a37",
+     "#c59e61",
+     "#e4c495",
+     "#feecd2"
+    ]
+   },
+   "enemy-red-ink": {
+    "role": "secondary",
+    "displayName": "Enemy Red Ink",
+    "canonical": "oklch(48.7% 0.162 29.0)",
+    "tonalRamp": [
+     "#140706",
+     "#41140f",
+     "#761e17",
+     "#a73329",
+     "#d25446",
+     "#f57c6d",
+     "#fbb5aa",
+     "#fee9e5"
+    ]
+   },
+   "team-green-ink": {
+    "role": "secondary",
+    "displayName": "Team Green Ink",
+    "canonical": "oklch(49.9% 0.123 147.0)",
+    "tonalRamp": [
+     "#060d07",
+     "#112c15",
+     "#184f22",
+     "#2b7237",
+     "#4a9655",
+     "#73b87b",
+     "#a3d9a8",
+     "#daf8dc"
+    ]
+   },
+   "water-blue-ink": {
+    "role": "secondary",
+    "displayName": "Water Blue Ink",
+    "canonical": "oklch(50.0% 0.162 258.4)",
+    "tonalRamp": [
+     "#050b15",
+     "#0d2447",
+     "#103f82",
+     "#215eb6",
+     "#3f80e1",
+     "#6da6fb",
+     "#abcbfc",
+     "#e5efff"
+    ]
+   },
+   "you-curve-ink": {
+    "role": "tertiary",
+    "displayName": "You Curve Ink",
+    "canonical": "oklch(51.4% 0.109 160.8)",
+    "tonalRamp": [
+     "#060d09",
+     "#0a2c1d",
+     "#034f33",
+     "#14734d",
+     "#39966c",
+     "#66b990",
+     "#9bdab8",
+     "#d6f8e5"
+    ]
+   },
+   "you-curve-ink-mid": {
+    "role": "tertiary",
+    "displayName": "You Curve Ink Mid",
+    "canonical": "oklch(66.2% 0.109 159.0)",
+    "tonalRamp": [
+     "#060d09",
+     "#0c2c1c",
+     "#084f31",
+     "#1a734b",
+     "#3d966a",
+     "#69b98e",
+     "#9ddab7",
+     "#d7f8e4"
+    ]
+   },
+   "you-curve-ink-deep": {
+    "role": "tertiary",
+    "displayName": "You Curve Ink Deep",
+    "canonical": "oklch(36.4% 0.075 161.1)",
+    "tonalRamp": [
+     "#070d0a",
+     "#162a20",
+     "#234b38",
+     "#396e54",
+     "#579174",
+     "#7eb397",
+     "#abd5be",
+     "#def5e8"
+    ]
+   },
+   "immortal-curve-ink": {
+    "role": "tertiary",
+    "displayName": "Immortal Curve Ink",
+    "canonical": "oklch(62.8% 0.133 73.7)",
+    "tonalRamp": [
+     "#100a03",
+     "#362000",
+     "#5b3a03",
+     "#825711",
+     "#ae7515",
+     "#d39842",
+     "#efc081",
+     "#feebd3"
+    ]
+   },
+   "immortal-curve-ink-mid": {
+    "role": "tertiary",
+    "displayName": "Immortal Curve Ink Mid",
+    "canonical": "oklch(76.6% 0.130 82.0)",
+    "tonalRamp": [
+     "#0f0a03",
+     "#332200",
+     "#563d02",
+     "#7c5b10",
+     "#a67a14",
+     "#cb9d41",
+     "#e8c481",
+     "#ffeccb"
+    ]
+   },
+   "immortal-curve-ink-deep": {
+    "role": "tertiary",
+    "displayName": "Immortal Curve Ink Deep",
+    "canonical": "oklch(43.4% 0.092 74.6)",
+    "tonalRamp": [
+     "#0f0a05",
+     "#31220d",
+     "#583c10",
+     "#7e5921",
+     "#a37a3f",
+     "#c59d67",
+     "#e3c499",
+     "#fdecd4"
+    ]
+   }
+  },
+  "typographyMeta": {
+   "display": {
+    "displayName": "Display",
+    "purpose": "Oxanium 700 uppercase: the hero and result atop a game review; empty-state h1."
+   },
+   "headline": {
+    "displayName": "Headline",
+    "purpose": "Oxanium 600 sentence case: the coach's verdict on the plate, max 60ch."
+   },
+   "stat": {
+    "displayName": "Stat",
+    "purpose": "Oxanium 700: tile values; the same voice sets team-gold totals, coach-brain headings and scores, the hero-card name."
+   },
+   "title": {
+    "displayName": "Title",
+    "purpose": "Rajdhani 700 tracked caps: section titles and rail headings led by a crimson rivet; table heads."
+   },
+   "label": {
+    "displayName": "Label",
+    "purpose": "Rajdhani 700 tracked caps: buttons, tabs, stat pills, kind tags, game names."
+   },
+   "body-heading": {
+    "displayName": "Body Heading",
+    "purpose": "Inter 650 sentence case: list headings and the coach's-note heading."
+   },
+   "body": {
+    "displayName": "Body",
+    "purpose": "Inter: explanations, details, table cells; max 75-80ch. Pinned by the user's brand studio."
+   },
+   "mono": {
+    "displayName": "Mono",
+    "purpose": "JetBrains Mono tabular: clocks, costs, axis labels, numbers, the ±10s buttons."
+   }
+  },
+  "shadows": [
+   {
+    "name": "float-obsidian",
+    "value": "0 12px 32px -14px rgba(0, 0, 0, 0.85)",
+    "purpose": "The board, the hero card and the curve tooltip in obsidian mode."
+   },
+   {
+    "name": "float-ash",
+    "value": "0 10px 30px -14px rgba(10, 10, 12, 0.3)",
+    "purpose": "The same floating things in ash mode."
+   },
+   {
+    "name": "map-halo",
+    "value": "SVG feDropShadow dx 0, dy 0, stdDeviation 3, #000 at 0.85",
+    "purpose": "Trails, wards, rings and arrows on the real minimap."
+   }
+  ],
+  "motion": [
+   {
+    "name": "state",
+    "value": "160ms ease-out",
+    "purpose": "Button background and colour fills; off under reduced motion."
+   },
+   {
+    "name": "loading-line",
+    "value": "stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1) infinite",
+    "purpose": "The crimson loading line; static under reduced motion."
+   }
+  ],
+  "breakpoints": [
+   {
+    "name": "main-tight",
+    "value": "1240px"
+   },
+   {
+    "name": "board-below",
+    "value": "1080px"
+   },
+   {
+    "name": "rail-top",
+    "value": "820px"
+   }
+  ]
+ },
+ "components": [
+  {
+   "name": "Crimson Button",
+   "kind": "button",
+   "refersTo": "button-crimson",
+   "description": "Primary actions only (Fetch my latest games, Play): crimson fill with the logo's chamfered corners.",
+   "html": "<button class=\"ds-btn-crimson\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3.5v11.5M7 10.5l5 5 5-5M4.5 19.5h15\"/></svg>Fetch my latest games</button>",
+   "css": ".ds-btn-crimson{--c:9px;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 16px;background:#d0261e;color:#fff;border:1.5px solid #d0261e;clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c));font:700 16px/1 'Rajdhani','Arial Narrow',sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background-color 160ms ease-out,color 160ms ease-out}.ds-btn-crimson:hover{background:#9e1b15;border-color:#9e1b15}.ds-btn-crimson:focus-visible{outline:none;box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 4px #9e1b15}"
+  },
+  {
+   "name": "Quiet Button",
+   "kind": "button",
+   "refersTo": "button-quiet",
+   "description": "Secondary actions: Re-run review, Close; the ±10s steps in mono.",
+   "html": "<span style=\"display:flex;gap:8px\"><button class=\"ds-btn-quiet\">Re-run review</button><button class=\"ds-btn-quiet ds-mono\">−10s</button></span>",
+   "css": ".ds-btn-quiet{min-height:34px;padding:0 16px;border-radius:3px;background:transparent;color:#b9b9c3;border:1px solid #2a2a35;font:700 15px/1 'Rajdhani','Arial Narrow',sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background-color 160ms ease-out,color 160ms ease-out}.ds-btn-quiet.ds-mono{font:600 15px/1 'JetBrains Mono',Consolas,monospace;letter-spacing:0;text-transform:none}.ds-btn-quiet:hover{background:#1b1b22;color:#f5f5f7}.ds-btn-quiet:focus-visible{outline:2px solid #ff4d42;outline-offset:2px}"
+  },
+  {
+   "name": "Stat Pills",
+   "kind": "chip",
+   "refersTo": "stat-pill",
+   "description": "Radio group picking one vs-Immortal stat; squared, the selected one fills crimson.",
+   "html": "<div class=\"ds-seg\" role=\"radiogroup\"><button role=\"radio\" aria-checked=\"true\">Net worth</button><button role=\"radio\" aria-checked=\"false\">Last hits</button><button role=\"radio\" aria-checked=\"false\">K/D/A</button></div>",
+   "css": ".ds-seg{display:flex;flex-wrap:wrap;gap:6px}.ds-seg button{font:700 15px/1 'Rajdhani','Arial Narrow',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#b9b9c3;background:transparent;border:1px solid #2a2a35;border-radius:3px;padding:9px 14px;cursor:pointer}.ds-seg button:hover{color:#f5f5f7;background:#1b1b22}.ds-seg button[aria-checked=true]{color:#fff;background:#d0261e;border-color:#d0261e}.ds-seg button:focus-visible{outline:2px solid #ff4d42;outline-offset:2px}"
+  },
+  {
+   "name": "Tabs",
+   "kind": "nav",
+   "refersTo": "tab",
+   "description": "Rajdhani caps on a hairline; the selected tab gets a 3px crimson underline.",
+   "html": "<div class=\"ds-tabs\" role=\"tablist\"><button role=\"tab\" aria-selected=\"true\">Teammates</button><button role=\"tab\" aria-selected=\"false\">vs Immortal</button><button role=\"tab\" aria-selected=\"false\">Practice plan</button></div>",
+   "css": ".ds-tabs{display:flex;gap:24px;border-bottom:1px solid #2a2a35}.ds-tabs button{background:transparent;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:8px 0;font:700 17px/1 'Rajdhani','Arial Narrow',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#b9b9c3;cursor:pointer}.ds-tabs button:hover{color:#f5f5f7}.ds-tabs button[aria-selected=true]{color:#f5f5f7;border-bottom:3px solid #e62e25;margin-bottom:-2px}.ds-tabs button:focus-visible{outline:2px solid #ff4d42;outline-offset:2px}"
+  },
+  {
+   "name": "Section Title",
+   "kind": "custom",
+   "refersTo": "",
+   "description": "Rajdhani tracked caps led by the logo's crimson rivet notch.",
+   "html": "<h2 class=\"ds-section-title\">Your team's win chance</h2>",
+   "css": ".ds-section-title{margin:0;display:flex;align-items:center;gap:8px;font:700 15px/1.2 'Rajdhani','Arial Narrow',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#b9b9c3}.ds-section-title::before{content:'';flex:none;width:4px;height:12px;background:#e62e25;clip-path:polygon(0 3px,3px 0,100% 0,100% 100%,0 100%)}"
+  },
+  {
+   "name": "Verdict Plate",
+   "kind": "card",
+   "refersTo": "verdict-plate",
+   "description": "The reversed plate: chamfered top-left and bottom-right with crimson rivet edges; flat, no shadow.",
+   "html": "<section class=\"ds-verdict\"><h2>You won the farm race, then kept dying alone in their jungle.</h2><p>Four of those deaths cost your team the game.</p></section>",
+   "css": ".ds-verdict{--c:16px;background:#f5f5f7;color:#0a0a0c;padding:16px 24px;display:flex;flex-direction:column;gap:8px;clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c));background-image:linear-gradient(135deg,#e62e25 0 calc(var(--c) + 4px),transparent 0),linear-gradient(315deg,#e62e25 0 calc(var(--c) + 4px),transparent 0)}.ds-verdict h2{margin:0;font:600 24px/1.25 'Oxanium','Segoe UI',sans-serif;letter-spacing:.01em;text-wrap:balance}.ds-verdict p{margin:0;font:400 15.5px/1.5 'Inter',system-ui,'Segoe UI',sans-serif}"
+  },
+  {
+   "name": "Game Row",
+   "kind": "nav",
+   "refersTo": "game-row-current",
+   "description": "Rail game rows; the current game gets Raise and a Crimson Hi hero name.",
+   "html": "<ul class=\"ds-games\"><li><a href=\"#\" aria-current=\"page\"><span><b>Juggernaut</b><small>Pos 1 · 9/3/7 · Today</small></span><span class=\"r\"><em class=\"w\">W</em><small>41:12</small></span></a></li><li><a href=\"#\"><span><b>Faceless Void</b><small>Pos 1 · 4/8/5 · Yesterday</small></span><span class=\"r\"><em class=\"l\">L</em><small>38:40</small></span></a></li></ul>",
+   "css": ".ds-games{list-style:none;margin:0;padding:8px;width:240px;background:#141418;display:flex;flex-direction:column;gap:2px}.ds-games a{display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px 8px;border-radius:3px;text-decoration:none;color:#f5f5f7}.ds-games a:hover,.ds-games a[aria-current=page]{background:#1b1b22}.ds-games a:focus-visible{outline:2px solid #ff4d42;outline-offset:-2px}.ds-games b{display:block;font:700 18px/1.15 'Rajdhani','Arial Narrow',sans-serif}.ds-games a[aria-current=page] b{color:#ff4d42}.ds-games small{display:block;font:400 12.5px/1.5 'Inter',system-ui,'Segoe UI',sans-serif;color:#b9b9c3}.ds-games .r{text-align:right}.ds-games em{font:700 14px/1.3 'JetBrains Mono',Consolas,monospace;font-style:normal}.ds-games .w{color:#8fd18a}.ds-games .l{color:#ef7a6e}"
+  },
+  {
+   "name": "Moment Row",
+   "kind": "custom",
+   "refersTo": "moment-row-selected",
+   "description": "Mono yellow clock, what happened with a kind tag, mono red cost; selecting it plays the moment on the board.",
+   "html": "<button class=\"ds-moment\" aria-pressed=\"true\"><span class=\"c\">22:14</span><span class=\"t\">You died to Techies in the enemy safe-lane jungle <i>Death</i></span><span class=\"k\">−9%</span></button>",
+   "css": ".ds-moment{display:grid;grid-template-columns:58px 1fr 76px;gap:12px;width:100%;text-align:left;background:transparent;border:0;border-top:1px solid #2a2a35;padding:11px 8px;color:#f5f5f7;font:400 15px/1.4 'Inter',system-ui,'Segoe UI',sans-serif;cursor:pointer}.ds-moment:hover,.ds-moment[aria-pressed=true]{background:#1b1b22}.ds-moment:focus-visible{outline:2px solid #ff4d42;outline-offset:2px}.ds-moment .c{font:600 15px/1.45 'JetBrains Mono',Consolas,monospace;color:#f2d65c;text-align:right;font-variant-numeric:tabular-nums}.ds-moment .k{font:600 15px/1.45 'JetBrains Mono',Consolas,monospace;color:#ef7a6e;text-align:right}.ds-moment i{font-style:normal;display:inline-block;margin-left:6px;padding:1px 6px;border:1px solid #2a2a35;border-radius:2px;font:700 12px/1.3 'Rajdhani','Arial Narrow',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#b9b9c3}"
+  },
+  {
+   "name": "Stat Tile",
+   "kind": "card",
+   "refersTo": "stat-tile",
+   "description": "General stats vs Immortal: Inter label, Oxanium value, the Immortal typical value.",
+   "html": "<div class=\"ds-tile\"><span class=\"l\">Last hits at 10:00</span><span class=\"v\">62</span><span class=\"s\">Immortal typical 71</span></div>",
+   "css": ".ds-tile{display:flex;flex-direction:column;gap:4px;width:170px;padding:12px;border:1px solid #2a2a35;border-radius:3px;background:#141418;color:#f5f5f7}.ds-tile .l{font:400 13px/1.4 'Inter',system-ui,'Segoe UI',sans-serif;color:#b9b9c3}.ds-tile .v{font:700 26px/1.1 'Oxanium','Segoe UI',sans-serif;letter-spacing:.02em}.ds-tile .s{font:400 12.5px/1.4 'Inter',system-ui,'Segoe UI',sans-serif;color:#858592}"
+  },
+  {
+   "name": "Board Hero Tiles",
+   "kind": "custom",
+   "refersTo": "board",
+   "description": "On the game's minimap each hero is their in-game icon on a dark tile: yellow border for you, green for teammates, red for enemies; dashed and faded when unseen. Icons come from the player's install, so this sample uses initials.",
+   "html": "<svg class=\"ds-board\" viewBox=\"0 0 240 120\" role=\"img\" aria-label=\"Hero tiles\"><rect width=\"240\" height=\"120\" rx=\"3\" fill=\"#0a0a0c\"/><g font-family=\"Oxanium,sans-serif\" font-weight=\"700\" font-size=\"13\" fill=\"#f5f5f7\" text-anchor=\"middle\"><rect x=\"20\" y=\"40\" width=\"40\" height=\"40\" rx=\"8\" fill=\"#0d0d10\" stroke=\"#f2d65c\" stroke-width=\"4.5\"/><text x=\"40\" y=\"65\">YOU</text><rect x=\"75\" y=\"44\" width=\"34\" height=\"34\" rx=\"7\" fill=\"#0d0d10\" stroke=\"#8fd18a\" stroke-width=\"3.5\"/><text x=\"92\" y=\"66\">TM</text><rect x=\"125\" y=\"44\" width=\"34\" height=\"34\" rx=\"7\" fill=\"#0d0d10\" stroke=\"#ef7a6e\" stroke-width=\"3.5\"/><text x=\"142\" y=\"66\">EN</text><g opacity=\".6\"><rect x=\"175\" y=\"44\" width=\"34\" height=\"34\" rx=\"7\" fill=\"#0d0d10\" stroke=\"#ef7a6e\" stroke-width=\"3.5\" stroke-dasharray=\"7 5\"/><text x=\"192\" y=\"66\">EN</text></g></g></svg>",
+   "css": ".ds-board{width:240px;display:block;box-shadow:0 12px 32px -14px rgba(0,0,0,0.85)}"
+  }
+ ],
+ "narrative": {
+  "northStar": "The Dire-Crimson War Room",
+  "overview": "MMRSlave reviews a Dota 2 game the way a coach breaks down tape, rendered in the player's own brand: an obsidian HUD cut like the MMRSlave logo, with the play that cost the game drawn on the real minimap. The brand is pinned by the user's stacked logo (`mmrslave-logo-stacked.svg`) and brand studio; the logo sits whole at the top of the rail, and its geometry (chamfered frame, crimson rivets) is the only ornament the interface borrows. Obsidian is the default, read at night next to the game client; ash is the light mode, white panels with obsidian ink and a deeper crimson. The rail stays obsidian in both themes so the logo always sits on the ground it was drawn for.\n\nIt is a working tool, so the world lends four things and stops: a HUD type voice (Oxanium display, Rajdhani labels), an obsidian palette with crimson reserved for brand chrome, a dense but calm layout, and one signature move, the selected moment played back on the game's own minimap. Navigation, tabs, tables, buttons and the range scrubber stay ordinary web controls. Crimson is a plate colour for actions and selection, never a glow on the interface and never a game meaning; the game keeps its own colours (yellow you, green your team, red the enemy).",
+  "keyCharacteristics": [
+   "Obsidian ground and slate panels with stark steel-white ink; ash-white panels and obsidian ink in light mode; the rail obsidian always.",
+   "Dire crimson only on brand chrome: primary actions, selection, focus, section rivets, plate rivets, coach-brain accents.",
+   "Game meanings in game colours on the board and charts, never crimson.",
+   "Four type voices: Oxanium display, Rajdhani HUD labels, Inter prose, JetBrains Mono clocks and numbers.",
+   "Filled plates take the logo's chamfered corner with a crimson rivet; everything else is squared (2-3px). No pills.",
+   "The board is the real in-game minimap with hero icons, read from the player's own Dota 2 install at run time and never stored in the project; a map drawn from geometry is the fallback."
+  ],
+  "rules": [
+   {
+    "name": "The Chrome, Not Meaning Rule",
+    "body": "Crimson marks the brand's own controls: what you can press, what is selected, what has focus. It never marks a hero, a team, a death, a cost or a curve. If crimson is telling the player something about the game, it is wrong; use the game colour.",
+    "section": "colors"
+   },
+   {
+    "name": "The One Meaning Rule",
+    "body": "Each game colour means one thing everywhere: yellow is \"you, at this moment\", green is \"your team and what's good for it\", red is \"the enemy and what your side lost\", blue is only water on the fallback map. Never use them as decoration.",
+    "section": "colors"
+   },
+   {
+    "name": "The Own Ground Rule",
+    "body": "The rail is obsidian in both themes, and the board on the real minimap keeps obsidian and the obsidian-mode game colours in ash mode, because the logo and the map art were drawn for a dark ground.",
+    "section": "colors"
+   },
+   {
+    "name": "The Four Voices Rule",
+    "body": "Oxanium shouts (headline numbers and names), Rajdhani labels (controls and section titles), Inter explains (any sentence), JetBrains Mono counts (any clock or number in a column). A sentence is never set in Oxanium caps or Rajdhani; a clock is never set in Inter.",
+    "section": "typography"
+   },
+   {
+    "name": "The Clock Column Rule",
+    "body": "Game clocks are always mono, tabular, right-aligned in their own column, and never wrap.",
+    "section": "typography"
+   },
+   {
+    "name": "The Logo-Only Face Rule",
+    "body": "Chakra Petch exists to render the logo's tagline. It is never a UI face.",
+    "section": "typography"
+   },
+   {
+    "name": "The Floating Things Rule",
+    "body": "Only the board and cards that hover over it cast a shadow. Plates, tiles, rows and buttons sit flat.",
+    "section": "elevation"
+   },
+   {
+    "name": "The Cut Corner Rule",
+    "body": "The chamfer belongs to filled plates (verdict, coach's note, crimson buttons). Outlined and quiet controls, rows, tiles and cards stay squared; nothing is a pill.",
+    "section": "shapes"
+   }
+  ],
+  "dos": [
+   "**Do** keep obsidian the default and ash the light mode, with the rail obsidian in both.",
+   "**Do** keep crimson on brand chrome only: primary actions, selected tab and stat pill, current game name, focus ring, text selection, rivets, checkbox accent, loading line, coach-brain accents.",
+   "**Do** give every claim a clock the player can click to see on the board.",
+   "**Do** carry state by line form (solid / dashed / hairline / faded) as well as colour.",
+   "**Do** cut the corners of filled plates with the logo's chamfer and leave everything else squared at 2-3px.",
+   "**Do** show the full stacked logo at the top of the rail, with its construction guides hidden and the tagline fitted to the MMR width.",
+   "**Do** keep controls standard: buttons, tabs, tables, a range input."
+  ],
+  "donts": [
+   "**Don't** use crimson for a game meaning (a hero, a team, a death, a cost, a curve).",
+   "**Don't** put glow on interface chrome; crimson is a plate colour, not a light source.",
+   "**Don't** round anything into a pill.",
+   "**Don't** add a shadow to a plate, tile, row or button.",
+   "**Don't** use Chakra Petch outside the logo.",
+   "**Don't** copy Valve's map or hero art into the project; read it from the player's own install at run time.",
+   "**Don't** show selection with a coloured stripe on the side of a row or card; use the Raise tint."
+  ]
+ }
+}

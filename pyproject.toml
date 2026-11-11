@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mmrslave"
+version = "0.1.0"
+description = "AI coach that learns from high-Immortal Dota 2 replays and reviews your games."
+requires-python = ">=3.12"
+dependencies = [
+    "gem-dota>=0.14",
+    "numpy>=2.2",
+    "pandas>=2.3",
+    "pyarrow>=20",
+    "torch>=2.9",
+    "httpx>=0.28",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "anthropic>=0.70",
+    "tqdm>=4.66",
+]
+
+[project.scripts]
+mmrslave = "mmrslave.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mmrslave = ["web/static/*"]
