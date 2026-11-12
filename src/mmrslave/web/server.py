@@ -3,21 +3,25 @@
 from __future__ import annotations
 
 import json
+import os
 import threading
 import time
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Body, FastAPI, HTTPException, Request
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 from mmrslave import game_assets
 from mmrslave.analyze import _clock
 from mmrslave.catalog import Catalog
 from mmrslave.coach import report_path
-from mmrslave.config import Settings, anthropic_api_key, load_settings
+from mmrslave import steam, updater
+from mmrslave.config import Settings, anthropic_api_key, load_settings, save_setting
+from mmrslave.desktop import RESTART_EXIT, SUPERVISED_ENV
 from mmrslave.extract import HF, load_meta, load_record
 
 STATIC = Path(__file__).parent / "static"
@@ -30,6 +34,9 @@ def create_app(s: Settings | None = None) -> FastAPI:
     app.add_middleware(GZipMiddleware, minimum_size=2000)
     jobs: dict[str, dict[str, Any]] = {}
     lock = threading.Lock()
+    supervised = os.environ.get(SUPERVISED_ENV) == "1"
+    steam_login = steam.SteamLogin()
+    update_state: dict[str, Any] = {"check": None, "error": None}
 
     def run_job(name: str, fn) -> dict[str, Any]:
         with lock:
@@ -50,10 +57,123 @@ def create_app(s: Settings | None = None) -> FastAPI:
         threading.Thread(target=target, daemon=True).start()
         return jobs[name]
 
+    def restart_soon() -> None:
+        """Exit with the restart code; the desktop supervisor starts the server again."""
+        threading.Timer(0.8, lambda: os._exit(RESTART_EXIT)).start()
+
+    def do_check() -> dict[str, Any]:
+        try:
+            update_state["check"], update_state["error"] = updater.check(), None
+        except updater.UpdateError as e:
+            update_state["error"] = str(e)
+        return update_state
+
+    def install_job(log) -> None:
+        info = updater.install(log)
+        update_state["check"], update_state["error"] = info, None
+        if info.get("installed_now"):
+            if supervised:
+                restart_soon()
+            else:
+                log("Installed. Close and reopen MMRSlave to use the new version.")
+
+    # Look for a new version once at startup; install it straight away when you chose that.
+    if s.updates.auto_update and supervised and updater.mode() in ("bundle", "git"):
+        run_job("update", install_job)
+    else:
+        threading.Thread(target=do_check, daemon=True).start()
+
     # ------------------------------------------------------------------ pages
     @app.get("/")
     def index() -> FileResponse:
         return FileResponse(STATIC / "index.html")
+
+    # ------------------------------------------------------------------ app
+    @app.get("/api/ping")
+    def ping() -> dict[str, Any]:
+        return {"app": "mmrslave", "version": updater.installed().get("sha")}
+
+    @app.get("/api/version")
+    def version() -> dict[str, Any]:
+        return {"installed": updater.installed(), "check": update_state["check"], "error": update_state["error"],
+                "auto_update": s.updates.auto_update, "can_restart": supervised,
+                "releases_url": updater.RELEASES_URL, "job": jobs.get("update")}
+
+    @app.post("/api/update/check")
+    def update_check() -> dict[str, Any]:
+        do_check()
+        return version()
+
+    @app.post("/api/update/install")
+    def update_install() -> dict[str, Any]:
+        return run_job("update", install_job)
+
+    @app.post("/api/settings/updates")
+    def update_settings(auto_update: bool = Body(..., embed=True)) -> dict[str, Any]:
+        s.updates.auto_update = auto_update
+        save_setting("updates", "auto_update", auto_update)
+        return version()
+
+    @app.post("/api/restart")
+    def restart() -> dict[str, Any]:
+        if not supervised:
+            raise HTTPException(409, "Started without the app window; restart it yourself.")
+        restart_soon()
+        return {"restarting": True}
+
+    # ------------------------------------------------------------------ Steam account
+    def base_url(request: Request) -> str:
+        return str(request.base_url).rstrip("/")
+
+    def cached_profile() -> dict[str, Any] | None:
+        if not s.steam_id:
+            return None
+        cat = Catalog(s.catalog_path)
+        raw = cat.kv_get("steam_profile")
+        cat.close()
+        try:
+            prof = json.loads(raw) if raw else None
+        except json.JSONDecodeError:
+            prof = None
+        if prof and prof.get("steam_id") == s.steam_id and time.time() - prof.get("fetched_at", 0) < 86400:
+            return prof
+        prof = {**steam.profile(s.steam_id), "fetched_at": time.time()}
+        cat = Catalog(s.catalog_path)
+        cat.kv_set("steam_profile", json.dumps(prof))
+        if prof.get("rank_tier"):
+            cat.kv_set("my_rank_tier", str(prof["rank_tier"]))
+        cat.close()
+        return prof
+
+    @app.get("/api/account")
+    def account() -> dict[str, Any]:
+        return {"steam_id": s.steam_id or None, "account_id": s.account_id or None, "profile": cached_profile()}
+
+    @app.get("/auth/steam/login")
+    def steam_login_start(request: Request) -> RedirectResponse:
+        return RedirectResponse(steam_login.login_url(base_url(request)), status_code=303)
+
+    @app.get("/auth/steam/callback")
+    def steam_login_done(request: Request) -> RedirectResponse:
+        try:
+            steam_id = steam_login.verify(dict(request.query_params), base_url(request))
+        except steam.SteamLoginError as e:
+            return RedirectResponse(f"/?steam_error={quote(str(e))}#/", status_code=303)
+        changed = steam_id != s.steam_id
+        s.steam_id = steam_id
+        save_setting("player", "steam_id", steam_id)
+        if changed:
+            cat = Catalog(s.catalog_path)
+            cat.kv_set("my_rank_tier", "")
+            cat.kv_set("steam_profile", "")
+            cat.close()
+        return RedirectResponse("/?steam=connected#/", status_code=303)
+
+    @app.post("/api/account/disconnect")
+    def steam_disconnect() -> dict[str, Any]:
+        s.steam_id = 0
+        save_setting("player", "steam_id", 0)
+        return {"steam_id": None}
 
     # ------------------------------------------------------------------ data
     @app.get("/api/status")
@@ -63,7 +183,7 @@ def create_app(s: Settings | None = None) -> FastAPI:
         rank = cat.kv_get("my_rank_tier")
         cat.close()
         history = []
-        hist = s.models_dir / "history.jsonl"
+        hist = s.model_file("history.jsonl")
         if hist.exists():
             for line in hist.read_text(encoding="utf-8").splitlines():
                 try:
@@ -79,8 +199,8 @@ def create_app(s: Settings | None = None) -> FastAPI:
         from mmrslave.coach import rank_name
         return {"summary": summary, "history": history, "rank": rank_name(int(rank or 0)),
                 "steam_id": s.steam_id, "coach_ready": bool(anthropic_api_key()),
-                "models": {n: (s.models_dir / f"{n}.pt").exists() for n in ("winprob", "context")},
-                "benchmarks": (s.models_dir / "benchmarks.json").exists(), "jobs": jobs}
+                "models": {n: s.model_file(f"{n}.pt").exists() for n in ("winprob", "context")},
+                "benchmarks": s.model_file("benchmarks.json").exists(), "jobs": jobs}
 
     @app.get("/api/matches")
     def matches() -> list[dict[str, Any]]:

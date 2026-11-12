@@ -20,6 +20,9 @@ const state = {
   play: { playing: false, speed: 1, last: 0 },
   autoPause: true,
   tab: "immortal",
+  account: null,      // connected Steam account
+  version: null,      // installed version and the last update check
+  restarting: false,
 };
 
 // ------------------------------------------------------------------ helpers
@@ -113,6 +116,8 @@ function setupLanguage() {
     translateStatic();
     renderGames();
     renderBrainMeta();
+    renderAccount();
+    renderUpdatePill();
     if (state.match && state.matchId === state.match.match_id && $("#board")) renderMatch();
     else route();
   }));
@@ -123,7 +128,8 @@ function setupLanguage() {
 function renderGames() {
   const ul = $("#games");
   if (!state.matches.length) {
-    ul.innerHTML = `<li class="games-empty">${t("No games yet. Fetch your latest games to start.")}</li>`;
+    ul.innerHTML = `<li class="games-empty">${state.account && !state.account.steam_id
+      ? t("Sign in through Steam to see your games.") : t("No games yet. Fetch your latest games to start.")}</li>`;
     return;
   }
   ul.innerHTML = state.matches.map((m) => `
@@ -145,9 +151,10 @@ function markCurrentGame() {
     if (Number(a.dataset.id) === state.matchId) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
   });
-  const brain = $("#brainLink");
-  if (location.hash.startsWith("#/brain")) brain.setAttribute("aria-current", "page");
-  else brain.removeAttribute("aria-current");
+  for (const [el, prefix] of [[$("#brainLink"), "#/brain"], [$("#settingsLink"), "#/settings"]]) {
+    if (location.hash.startsWith(prefix)) el.setAttribute("aria-current", "page");
+    else el.removeAttribute("aria-current");
+  }
 }
 
 function renderBrainMeta() {
@@ -168,6 +175,7 @@ async function refreshRail() {
   }
   renderGames();
   renderBrainMeta();
+  renderAccount();
 }
 
 // ------------------------------------------------------------------ background jobs
@@ -224,6 +232,8 @@ async function route() {
     pause();
     state.matchId = null;
     showBrain();
+  } else if (hash.startsWith("#/settings")) {
+    showSettings();
   } else if (state.matches.length) {
     location.replace(`#/match/${state.matches[0].match_id}`);
     return;
@@ -235,6 +245,15 @@ async function route() {
 }
 
 function showEmpty() {
+  if (state.account && !state.account.steam_id) {
+    main.innerHTML = `
+    <section class="state">
+      <h1>${t("Connect your Steam account")}</h1>
+      <p>${t("MMRSlave reviews your own ranked games. Sign in through Steam so it can find them; you sign in on Steam's own page and MMRSlave only learns your Steam ID.")}</p>
+      <p><a class="btn btn-brand" href="/auth/steam/login">${t("Sign in through Steam")}</a></p>
+    </section>`;
+    return;
+  }
   main.innerHTML = `
     <section class="state">
       <h1>${t("No games to review yet")}</h1>
@@ -378,7 +397,7 @@ function renderMatch() {
   const an = state.match;
   const me = myPlayer(an);
   if (!me) {
-    main.innerHTML = `<section class="state"><h1>${t("You're not in this game")}</h1><p>${t("Check <code>player.steam_id</code> in mmrslave.toml.")}</p></section>`;
+    main.innerHTML = `<section class="state"><h1>${t("You're not in this game")}</h1><p>${t("Check which Steam account is connected in <a href=\"#/settings\">Settings</a>.")}</p></section>`;
     return;
   }
   const moments = buildMoments(an);
@@ -1584,6 +1603,242 @@ async function showBrain() {
     <p class="lead">${st.coach_ready ? t("Written coaching: on.") : t("Written coaching: off. Set the <code>ANTHROPIC_API_KEY</code> environment variable and restart the dashboard to turn it on.")}</p>`;
 }
 
+// ------------------------------------------------------------------ Steam account
+
+async function refreshAccount() {
+  try { state.account = await api("/api/account"); } catch (e) { state.account = state.account || { steam_id: null }; }
+  renderAccount();
+}
+
+function avatarHtml(p, cls = "acc-avatar") {
+  return p?.avatar ? `<img class="${cls}" src="${esc(p.avatar)}" alt="" referrerpolicy="no-referrer"
+      onerror="this.replaceWith(Object.assign(document.createElement('span'), {className: '${cls} none', textContent: '?'}))">`
+    : `<span class="${cls} none" aria-hidden="true">?</span>`;
+}
+
+function accountName(acc) {
+  return acc.profile?.name || t("Steam ID {id}", { id: acc.steam_id });
+}
+
+function renderAccount() {
+  const box = $("#account");
+  const acc = state.account;
+  const connected = Boolean(acc?.steam_id);
+  $("#fetchBtn").hidden = !connected;
+  if (!acc) { box.innerHTML = ""; return; }
+  if (connected) {
+    const rank = state.status?.rank;
+    box.innerHTML = `<a class="account-card" href="#/settings" title="${esc(t("Steam account"))}">
+      ${avatarHtml(acc.profile)}
+      <span><span class="acc-name">${esc(accountName(acc))}</span>
+      <span class="acc-meta">${esc(rank || t("Steam connected"))}</span></span></a>`;
+  } else {
+    box.innerHTML = `<a class="btn btn-brand" href="/auth/steam/login">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4.5H5.5v15H10M14.5 8l4 4-4 4M18.5 12H9"/></svg>
+        <span>${t("Sign in through Steam")}</span></a>
+      <p class="account-note">${t("You sign in on Steam's own page. MMRSlave only learns your Steam ID, never your password.")}</p>`;
+  }
+}
+
+// Steam sends the window back here after signing in: /?steam=connected#/ or /?steam_error=...#/
+function handleSteamReturn() {
+  const q = new URLSearchParams(location.search);
+  if (!q.has("steam") && !q.has("steam_error")) return;
+  history.replaceState(null, "", "/" + (location.hash || "#/"));
+  if (q.get("steam_error")) {
+    renderAccount();
+    const note = $("#account .account-note");
+    if (note) { note.classList.add("err"); note.textContent = t("Steam sign-in didn't finish: {e}", { e: t(q.get("steam_error")) }); }
+    return;
+  }
+  // First sign-in: go and find this account's games straight away.
+  if (!state.matches.length) $("#fetchBtn").click();
+}
+
+async function disconnectSteam() {
+  if (!confirm(t("Disconnect this Steam account? Your downloaded games stay on this PC."))) return;
+  await api("/api/account/disconnect", { method: "POST" });
+  state.match = null;
+  await Promise.all([refreshAccount(), refreshRail()]);
+  showSettings();
+}
+
+// ------------------------------------------------------------------ updates
+
+async function refreshVersion() {
+  try { state.version = await api("/api/version"); } catch (e) { return; }
+  renderUpdatePill();
+  if (state.version.job?.state === "running") watchUpdate();
+}
+
+function renderUpdatePill() {
+  const pill = $("#updatePill");
+  const v = state.version;
+  const busy = v?.job?.state === "running" || state.restarting;
+  const available = v?.check?.available;
+  pill.hidden = !(busy || available);
+  pill.classList.toggle("busy", Boolean(busy));
+  pill.textContent = busy ? t("Updating…") : t("New version available");
+}
+
+function fmtDate(iso) {
+  if (!iso) return "";
+  return new Date(iso).toLocaleDateString(dateLocale(), { day: "numeric", month: "short", year: "numeric" });
+}
+
+function updateBoxHtml() {
+  const v = state.version;
+  if (!v) return `<div class="update-box">${loading(t("Checking GitHub…"))}</div>`;
+  if (state.restarting) return `<div class="update-box new">${loading(t("Restarting on the new version…"))}</div>`;
+  const job = v.job;
+  if (job?.state === "running") return `<div class="update-box new">${loading(t(job.log.at(-1) || "Installing…"))}</div>`;
+  const jobErr = job?.state === "error"
+    ? `<p class="err">${esc(t("The update failed: {e}", { e: t((job.log.at(-1) || "").replace(/^error:\s*/, "")) }))}</p>` : "";
+  if (v.error) return `<div class="update-box">${jobErr}<p class="err">${esc(t(v.error))}</p></div>`;
+  const c = v.check;
+  if (!c) return `<div class="update-box">${jobErr}${loading(t("Checking GitHub…"))}</div>`;
+  const checked = t("Checked at {time}.", { time: new Date(c.checked_at * 1000).toLocaleTimeString(dateLocale(), { hour: "2-digit", minute: "2-digit" }) });
+  if (!c.available) {
+    return `<div class="update-box">${jobErr}<p class="update-head">${t("You have the newest version.")}</p><p class="set-note">${checked}</p></div>`;
+  }
+  const changes = c.changes?.length ? `<ul class="changes">${c.changes.map((x) =>
+    `<li><code>${esc(x.sha)}</code><span>${esc(x.message)}</span></li>`).join("")}</ul>` : "";
+  let action;
+  if (c.needs_full_download) {
+    action = `<p class="set-note warn">${t("This version adds new libraries, so it needs the full download. Unzip it over this copy (your games and settings stay) and open MMRSlave again.")}</p>
+      <div class="set-actions"><a class="btn btn-brand" href="${esc(c.releases_url)}" target="_blank" rel="noopener">${t("Download the new version")}</a></div>`;
+  } else if (c.can_install) {
+    action = `<div class="set-actions"><button class="btn btn-brand" type="button" id="installUpdate">${t("Install and restart")}</button></div>`;
+  } else {
+    action = `<p class="set-note">${t("This copy wasn't installed from GitHub, so it can't update itself.")}</p>`;
+  }
+  const head = c.ahead_by
+    ? t("New version {v} from {date}: {n} changes", { v: c.latest.short, date: fmtDate(c.latest.date), n: c.ahead_by })
+    : t("New version {v} from {date}", { v: c.latest.short, date: fmtDate(c.latest.date) });
+  return `<div class="update-box new">${jobErr}<p class="update-head">${esc(head)}</p>${changes}${action}<p class="set-note">${checked}</p></div>`;
+}
+
+function renderUpdateBox() {
+  const box = $("#updateBox");
+  if (!box) return;
+  box.innerHTML = updateBoxHtml();
+  $("#installUpdate")?.addEventListener("click", installUpdate);
+}
+
+async function installUpdate() {
+  try {
+    const job = await api("/api/update/install", { method: "POST" });
+    state.version = { ...state.version, job };
+    renderUpdateBox();
+    renderUpdatePill();
+    watchUpdate();
+  } catch (e) {
+    state.version = { ...state.version, error: e.message };
+    renderUpdateBox();
+  }
+}
+
+let watchingUpdate = false;
+async function watchUpdate() {
+  if (watchingUpdate) return;
+  watchingUpdate = true;
+  const before = state.version?.installed?.sha;
+  const job = await pollJob("update", (msg) => {
+    if (state.version) state.version.job = { ...(state.version.job || {}), state: "running", log: [msg] };
+    renderUpdateBox();
+  });
+  watchingUpdate = false;
+  if (job.state === "error" || !/Restarting/.test(job.log.at(-1) || "")) {
+    await refreshVersion();
+    renderUpdateBox();
+    return;
+  }
+  // The server restarts on the new code; reload once it answers with the new version.
+  state.restarting = true;
+  renderUpdatePill();
+  renderUpdateBox();
+  for (let i = 0; i < 180; i++) {
+    await new Promise((r) => setTimeout(r, 1000));
+    try {
+      const p = await api("/api/ping");
+      if (p.version !== before || i > 20) { location.reload(); return; }
+    } catch (e) { /* still restarting */ }
+  }
+  state.restarting = false;
+  renderUpdateBox();
+}
+
+// ------------------------------------------------------------------ settings page
+
+async function showSettings() {
+  pause();
+  state.matchId = null;
+  if (!$(".settings")) main.innerHTML = `<section class="state">${loading(t("Loading settings…"))}</section>`;
+  await Promise.all([refreshAccount(), state.version ? null : refreshVersion()]);
+  if (!location.hash.startsWith("#/settings")) return;
+  const acc = state.account || {};
+  const v = state.version;
+  const inst = v?.installed || {};
+  const modeNote = {
+    bundle: t("Updates come from GitHub: only the changed code and the coach's training, a few MB."),
+    git: t("Running from a Git clone: updating runs <code>git pull</code>."),
+    source: t("This copy wasn't installed from GitHub, so it can't update itself."),
+  }[inst.mode] || "";
+  const accountHtml = acc.steam_id ? `
+      <div class="set-account">${avatarHtml(acc.profile)}
+        <div><span class="acc-name">${esc(accountName(acc))}</span>
+        <span class="acc-meta">${esc([state.status?.rank, `Steam ID ${acc.steam_id}`].filter(Boolean).join(" · "))}</span></div></div>
+      ${acc.profile && !acc.profile.known ? `<p class="set-note warn">${t("OpenDota doesn't know this account yet. In Dota 2, turn on <b>Settings → Social → Expose Public Match Data</b>, play a game, then fetch your games.")}</p>` : ""}
+      <div class="set-actions">
+        <a class="btn btn-quiet" href="/auth/steam/login">${t("Switch account")}</a>
+        <button class="btn btn-quiet" type="button" id="disconnectSteam">${t("Disconnect")}</button>
+      </div>`
+    : `<p class="set-note">${t("Connect your Steam account so MMRSlave can find your ranked games. You sign in on Steam's own page: MMRSlave only learns your Steam ID, never your password, and can't do anything with your account.")}</p>
+      <div class="set-actions"><a class="btn btn-brand" href="/auth/steam/login">${t("Sign in through Steam")}</a></div>`;
+
+  main.innerHTML = `
+    <header class="match-head"><div class="mh-title"><h1>${t("Settings")}</h1></div></header>
+    <div class="settings">
+      <section aria-labelledby="setSteam">
+        <h2 class="section-title" id="setSteam">${t("Steam account")}</h2>
+        ${accountHtml}
+        <p class="set-note">${t("Your games are found through OpenDota. In Dota 2, keep <b>Settings → Social → Expose Public Match Data</b> on.")}</p>
+      </section>
+      <section aria-labelledby="setUpdates">
+        <h2 class="section-title" id="setUpdates">${t("Updates")}</h2>
+        <p class="version-line">${t("Version")} <b>${esc(inst.short || "?")}</b>${inst.date ? ` · ${esc(fmtDate(inst.date))}` : ""}</p>
+        <p class="set-note">${modeNote}</p>
+        <div id="updateBox" role="status" aria-live="polite"></div>
+        <div class="set-actions">
+          <button class="btn btn-quiet" type="button" id="checkUpdates" ${inst.mode === "source" ? "disabled" : ""}>${t("Check for updates")}</button>
+        </div>
+        <label class="toggle"><input type="checkbox" id="autoUpdate" ${v?.auto_update ? "checked" : ""} ${inst.mode === "source" ? "disabled" : ""}>
+          ${t("Install updates automatically when MMRSlave starts")}</label>
+      </section>
+    </div>`;
+  renderUpdateBox();
+  $("#disconnectSteam")?.addEventListener("click", disconnectSteam);
+  $("#checkUpdates").addEventListener("click", async (e) => {
+    const btn = e.currentTarget;
+    btn.disabled = true;
+    btn.setAttribute("aria-busy", "true");
+    state.version = { ...state.version, check: null, error: null, job: null };
+    renderUpdateBox();
+    try { state.version = await api("/api/update/check", { method: "POST" }); } catch (err) { state.version = { ...state.version, error: err.message }; }
+    btn.disabled = false;
+    btn.removeAttribute("aria-busy");
+    renderUpdateBox();
+    renderUpdatePill();
+  });
+  $("#autoUpdate").addEventListener("change", async (e) => {
+    try {
+      state.version = await api("/api/settings/updates", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ auto_update: e.target.checked }),
+      });
+    } catch (err) { e.target.checked = !e.target.checked; }
+  });
+}
+
 // ------------------------------------------------------------------ start
 
 async function start() {
@@ -1593,8 +1848,18 @@ async function start() {
   setupKeys();
   window.addEventListener("hashchange", route);
   try { state.geometry = await api("/api/geometry"); } catch (e) { state.geometry = null; }
-  await refreshRail();
+  await Promise.all([refreshRail(), refreshAccount()]);
+  refreshVersion();
+  // The server looks for a new version in the background when it starts; pick up the answer.
+  (async () => {
+    for (let i = 0; i < 15 && state.version && !state.version.check && !state.version.error; i++) {
+      await new Promise((r) => setTimeout(r, 3000));
+      await refreshVersion();
+      renderUpdateBox();
+    }
+  })();
   await route();
+  handleSteamReturn();
 }
 
 start();

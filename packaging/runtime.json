@@ -1,0 +1,4 @@
+{
+  "runtime": 1,
+  "note": "Raise this number in any commit that adds or upgrades a library, so the packaged app knows the code alone can't update and asks for the new full download from Releases."
+}

@@ -5,6 +5,25 @@ An AI Dota 2 coach. It learns what good play looks like from thousands of recent
 your deaths and your decisions (fights you could have TPed to, towers lost while you farmed,
 enemies dead but no objective taken, runes), and what to do instead, with game clocks and evidence.
 
+## Just want to use it? (MMRSlave.exe)
+
+1. Download **MMRSlave-windows-….zip** from the [Releases page](https://github.com/c0olzero/MMRSlave-v2/releases/latest)
+   and unzip it. Keep the folder together.
+2. Double-click **MMRSlave.exe**. It opens in its own window (Microsoft Edge in app mode,
+   already on every Windows 10/11 PC). If Windows warns about an unknown publisher:
+   **More info → Run anyway**.
+3. **Sign in through Steam.** You sign in on Steam's own page; the app only learns your Steam ID
+   (it never sees your password and can't do anything with your account).
+4. In Dota 2, turn on **Settings → Social → Expose Public Match Data**, then **Fetch my latest games**.
+
+The app comes with the coach's training (`brain/`), so reviews work straight away. It keeps its
+settings, games and logs in `%LOCALAPPDATA%\MMRSlave`.
+
+**Updates:** Settings (gear, bottom left) → **Check for updates**, or tick **Install updates
+automatically when MMRSlave starts**. An update downloads just the changed code and training from
+this repository's `main` branch (a few MB) and restarts the app. If an update needs a new library,
+the app links to the Releases page for the full download instead.
+
 ## How it works
 
 1. **Collect.** Finds recent ranked games where at least 8 of 10 players are Immortal
@@ -45,7 +64,9 @@ In Dota 2, keep **Settings → Social → Expose Public Match Data** on, so your
 |---|---|
 | `python -m mmrslave mine` | Download and parse your last 20 games |
 | `python -m mmrslave analyze` | Review your latest game (or `analyze <match_id>`) |
-| `python -m mmrslave serve` | Open the dashboard at http://127.0.0.1:8765 |
+| `python -m mmrslave app` | Open MMRSlave in its own window (what MMRSlave.exe does) |
+| `python -m mmrslave serve` | Run the dashboard for your browser at http://127.0.0.1:8765 |
+| `python -m mmrslave update` | Pull the newest version from GitHub (`--check` to only look) |
 | `python -m mmrslave auto` | One full cycle: collect Immortal games, retrain when 300+ are new, fetch and review your games |
 | `python -m mmrslave status` | What's collected and trained |
 | `python -m mmrslave assets` | Copy the minimap and hero icons from your Dota 2 install again |
@@ -86,6 +107,22 @@ Run one collecting command at a time (`collect`, `mine` and `auto` share the dow
 The free OpenDota tier allows 3,000 API calls a day (about 1,000 qualifying games). An
 OpenDota API key (`setx OPENDOTA_API_KEY ...`) lifts that limit for a small per-call fee.
 
+## Shipping a new version to everyone
+
+Installed apps update from the `main` branch, so **pushing to `main` is releasing**:
+
+1. Commit and push code changes as usual. Every app that checks for updates gets them.
+2. After retraining, share the new training: `python -m mmrslave publish-brain` copies your
+   models and benchmarks into `brain/`; commit and push it (about 17 MB).
+3. **Only when you add or upgrade a library** in `pyproject.toml`: raise the number in
+   `packaging/runtime.json` in the same commit, then make a new full download:
+   `git tag v0.2.0 && git push origin v0.2.0`. GitHub Actions builds the .exe and puts the zip
+   on the Releases page. Apps on the old version are told to download it.
+
+To build the .exe on this PC instead: `powershell -ExecutionPolicy Bypass -File packaging\build.ps1`
+(first run sets up `.venv-build` with the CPU build of PyTorch). The result is `dist\MMRSlave\` and
+`dist\MMRSlave-windows-<commit>.zip`.
+
 ## Honest limits
 
 - The models are only as good as the data. With a few hundred games they are rough; they
@@ -100,4 +137,7 @@ OpenDota API key (`setx OPENDOTA_API_KEY ...`) lifts that limit for a small per-
 
 - Data (replays, parsed matches, models, reports): `D:/MMRSlaveData` (set in `mmrslave.toml`)
 - Code: `src/mmrslave/` (`collect.py`, `extract.py`, `features.py`, `models.py`, `train.py`,
-  `analyze.py`, `coach.py`, `web/`)
+  `analyze.py`, `coach.py`, `web/`; the app window in `desktop.py`, Steam sign-in in `steam.py`,
+  updates in `updater.py`)
+- Published training: `brain/` (used when you haven't trained your own models)
+- Packaging: `packaging/` (`build.ps1`, `build.py`, `mmrslave.spec`, `launcher.py`)

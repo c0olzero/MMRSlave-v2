@@ -316,4 +316,74 @@ const VI = {
   "Written coaching: on.": "Coaching dạng văn bản: bật.",
   "Written coaching: off. Set the <code>ANTHROPIC_API_KEY</code> environment variable and restart the dashboard to turn it on.":
     "Coaching dạng văn bản: tắt. Đặt biến môi trường <code>ANTHROPIC_API_KEY</code> và khởi động lại dashboard để bật.",
+
+  // Steam account
+  "Settings": "Cài đặt",
+  "Steam account": "Tài khoản Steam",
+  "Steam ID {id}": "Steam ID {id}",
+  "Steam connected": "Đã kết nối Steam",
+  "Sign in through Steam": "Đăng nhập bằng Steam",
+  "You sign in on Steam's own page. MMRSlave only learns your Steam ID, never your password.":
+    "Bạn đăng nhập trên trang của chính Steam. MMRSlave chỉ biết Steam ID của bạn, không bao giờ biết mật khẩu.",
+  "Steam sign-in didn't finish: {e}": "Đăng nhập Steam chưa xong: {e}",
+  "This sign-in link expired or wasn't started here. Try again.": "Liên kết đăng nhập đã hết hạn hoặc không được mở từ đây. Hãy thử lại.",
+  "Steam sign-in was cancelled.": "Đăng nhập Steam đã bị huỷ.",
+  "Steam sent the sign-in back to a different address.": "Steam trả kết quả đăng nhập về một địa chỉ khác.",
+  "Steam didn't return a Steam ID.": "Steam không trả về Steam ID.",
+  "Steam didn't confirm this sign-in.": "Steam không xác nhận lần đăng nhập này.",
+  "Disconnect this Steam account? Your downloaded games stay on this PC.":
+    "Ngắt kết nối tài khoản Steam này? Các trận đã tải vẫn được giữ trên máy.",
+  "Switch account": "Đổi tài khoản",
+  "Sign in through Steam to see your games.": "Đăng nhập bằng Steam để xem các trận của bạn.",
+  "Disconnect": "Ngắt kết nối",
+  "Connect your Steam account": "Kết nối tài khoản Steam",
+  "MMRSlave reviews your own ranked games. Sign in through Steam so it can find them; you sign in on Steam's own page and MMRSlave only learns your Steam ID.":
+    "MMRSlave đánh giá các trận ranked của chính bạn. Hãy đăng nhập bằng Steam để app tìm được chúng; bạn đăng nhập trên trang của Steam và MMRSlave chỉ biết Steam ID của bạn.",
+  "Connect your Steam account so MMRSlave can find your ranked games. You sign in on Steam's own page: MMRSlave only learns your Steam ID, never your password, and can't do anything with your account.":
+    "Kết nối tài khoản Steam để MMRSlave tìm được các trận ranked của bạn. Bạn đăng nhập trên trang của Steam: MMRSlave chỉ biết Steam ID, không bao giờ biết mật khẩu và không thể làm gì với tài khoản của bạn.",
+  "OpenDota doesn't know this account yet. In Dota 2, turn on <b>Settings → Social → Expose Public Match Data</b>, play a game, then fetch your games.":
+    "OpenDota chưa biết tài khoản này. Trong Dota 2, hãy bật <b>Settings → Social → Expose Public Match Data</b>, chơi một trận, rồi tải các trận của bạn.",
+  "Your games are found through OpenDota. In Dota 2, keep <b>Settings → Social → Expose Public Match Data</b> on.":
+    "Các trận của bạn được tìm qua OpenDota. Trong Dota 2, hãy luôn bật <b>Settings → Social → Expose Public Match Data</b>.",
+  "Check which Steam account is connected in <a href=\"#/settings\">Settings</a>.":
+    "Kiểm tra tài khoản Steam đang kết nối trong <a href=\"#/settings\">Cài đặt</a>.",
+  "Connect your Steam account first (or set player.steam_id in mmrslave.toml).": "Hãy kết nối tài khoản Steam trước.",
+
+  // updates
+  "Updates": "Cập nhật",
+  "Version": "Phiên bản",
+  "Loading settings…": "Đang tải cài đặt…",
+  "Check for updates": "Kiểm tra cập nhật",
+  "Install updates automatically when MMRSlave starts": "Tự động cài cập nhật khi mở MMRSlave",
+  "Updates come from GitHub: only the changed code and the coach's training, a few MB.":
+    "Bản cập nhật lấy từ GitHub: chỉ phần code đã đổi và dữ liệu huấn luyện của coach, vài MB.",
+  "Running from a Git clone: updating runs <code>git pull</code>.": "Đang chạy từ bản Git clone: cập nhật sẽ chạy <code>git pull</code>.",
+  "This copy wasn't installed from GitHub, so it can't update itself.": "Bản này không được cài từ GitHub nên không tự cập nhật được.",
+  "New version available": "Có phiên bản mới",
+  "Updating…": "Đang cập nhật…",
+  "Checking GitHub…": "Đang kiểm tra GitHub…",
+  "Checked at {time}.": "Đã kiểm tra lúc {time}.",
+  "You have the newest version.": "Bạn đang dùng phiên bản mới nhất.",
+  "New version {v} from {date}: {n} changes": "Phiên bản mới {v} ngày {date}: {n} thay đổi",
+  "New version {v} from {date}": "Phiên bản mới {v} ngày {date}",
+  "Install and restart": "Cài đặt và khởi động lại",
+  "Download the new version": "Tải phiên bản mới",
+  "This version adds new libraries, so it needs the full download. Unzip it over this copy (your games and settings stay) and open MMRSlave again.":
+    "Phiên bản này thêm thư viện mới nên cần tải bản đầy đủ. Giải nén đè lên bản hiện tại (trận và cài đặt của bạn vẫn giữ nguyên) rồi mở lại MMRSlave.",
+  "Restarting on the new version…": "Đang khởi động lại với phiên bản mới…",
+  "Installing…": "Đang cài đặt…",
+  "Downloading the new version from GitHub…": "Đang tải phiên bản mới từ GitHub…",
+  "Unpacking…": "Đang giải nén…",
+  "Installed. Restarting…": "Đã cài xong. Đang khởi động lại…",
+  "Pulling from GitHub…": "Đang kéo code từ GitHub…",
+  "Installing new libraries…": "Đang cài thư viện mới…",
+  "Already up to date.": "Đã là bản mới nhất.",
+  "The update failed: {e}": "Cập nhật thất bại: {e}",
+  "GitHub's limit for update checks is used up for this hour. Try again later.":
+    "Đã hết lượt kiểm tra cập nhật GitHub cho giờ này. Hãy thử lại sau.",
+  "This update adds new libraries, so it needs the full download from the Releases page.":
+    "Bản cập nhật này thêm thư viện mới nên cần tải bản đầy đủ từ trang Releases.",
+  "This folder has changes that aren't committed; commit or stash them, then update.":
+    "Thư mục này có thay đổi chưa commit; hãy commit hoặc stash rồi cập nhật.",
+  "The download was damaged. Try again.": "File tải về bị lỗi. Hãy thử lại.",
 };

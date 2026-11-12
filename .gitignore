@@ -16,3 +16,6 @@ mmrslave.toml
 
 # test and tool caches
 .pytest_cache/
+
+# packaged-app build environment
+.venv-build/

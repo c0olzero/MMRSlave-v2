@@ -255,7 +255,7 @@ An obsidian HUD with one brand colour for chrome and four game colours that each
 
 ## Layout
 
-A fixed left rail (264px, sticky, full height) holds the full stacked logo (up to 208px wide, centred), the crimson fetch action and its status line, the player's games, and at the foot the coach-brain link beside a column of the EN | VI language switch and the theme switch. The main column scrolls with 24px/32px/48px padding and 24px between major blocks. A game review stacks header (hero icon and display h1 on the left; on the right a boxed fact strip, label over value, for result, position, K/D/A, duration, side and match, then the re-run action), verdict plate, then the stage: the board centred and as large as the window allows (up to 940px, about the viewport height minus 200px), each team's stats boxed on its own side (Radiant left and bottom-aligned, Dire right and top-aligned), the player and the coach's note under it. Below, the win-chance chart and the moments list sit side by side, then the tabs. Spacing steps by 4px (4, 8, 12, 16, 24, 32, 48).
+A fixed left rail (264px, sticky, full height) holds the full stacked logo (up to 208px wide, centred), a "new version" notice when one is waiting, the Steam account card (or the crimson "Sign in through Steam" action when none is connected), the crimson fetch action and its status line, the player's games, and at the foot the coach-brain link beside a column of the EN | VI language switch and, side by side, the settings and theme icons. The main column scrolls with 24px/32px/48px padding and 24px between major blocks. A game review stacks header (hero icon and display h1 on the left; on the right a boxed fact strip, label over value, for result, position, K/D/A, duration, side and match, then the re-run action), verdict plate, then the stage: the board centred and as large as the window allows (up to 940px, about the viewport height minus 200px), each team's stats boxed on its own side (Radiant left and bottom-aligned, Dire right and top-aligned), the player and the coach's note under it. Below, the win-chance chart and the moments list sit side by side, then the tabs. Spacing steps by 4px (4, 8, 12, 16, 24, 32, 48).
 
 Under 1240px the main padding tightens to 24px. Under 1080px the chart and the list stack, both team-gold panels move under the map side by side, and the coach-brain cards stack. Under 820px the rail becomes a top bar (logo 150px), the games list a horizontal snap strip of bordered rows, two-column tabs collapse to one, the board takes the full width, and tables scroll sideways inside themselves, never the page.
 
@@ -280,12 +280,12 @@ Squared HUD geometry. Small marks (tags, code, item slots, bars, team swatches) 
 
 ### Buttons
 - **Shape:** squared (3px), crimson buttons chamfered (9px cut).
-- **Crimson:** Crimson Fill with white Rajdhani label, 40px min height. Only the primary actions: "Fetch my latest games" and Play/Pause (52×44px). Hover deepens to Crimson Lo; focus is an inset white ring inside a Crimson Lo ring (the clip would cut an outline).
+- **Crimson:** Crimson Fill with white Rajdhani label, 40px min height. Only the primary actions: "Sign in through Steam", "Fetch my latest games", "Install and restart" and Play/Pause (52×44px). Hover deepens to Crimson Lo; focus is an inset white ring inside a Crimson Lo ring (the clip would cut an outline).
 - **Outline:** transparent with a 1.5px steel outline; fills steel (text turns obsidian) on hover. Used on the coach's note ("Keep playing"), where it takes the plate's ink.
 - **Quiet:** 1px rule outline, dim label, 34px; fills Raise on hover. "Re-run review" and Close.
 - **Player control:** 40px squared outline, mono label, filled SVG icon; rewind/fast-forward and the 36px speed steps.
 - **Language switch:** two-cell squared segment (EN | VI) in Rajdhani; the active cell fills Crimson Fill.
-- **Icon:** 36px squared outline (theme switch), 19px stroked SVG.
+- **Icon:** 36px squared outline (settings and theme), 19px stroked SVG. The settings icon takes Raise and Crimson Hi while its page is open.
 - **Busy / disabled:** 55% opacity and a progress cursor; the status line under the button narrates the background job. Colour transitions 160ms ease-out, off under reduced motion.
 
 ### Chips (stat pills and tags)
@@ -297,6 +297,9 @@ Squared HUD geometry. Small marks (tags, code, item slots, bars, team swatches) 
 - **Hero card:** Raise panel, 1px rule border, 3px top edge in the hero's side colour (yellow/green/red), floating shadow. See the Board.
 - **Stat tiles:** Board fill, 1px rule, 3px radius, 12px padding: Inter label, Oxanium value, the Immortal typical value, and the better-than bar.
 - **Coach-brain cards:** a 3px crimson top rule (rule colour when the model is off), Oxanium caps heading and score.
+- **Steam account card (rail):** 1px rule box, 40px square avatar (a "?" tile when it can't load), Rajdhani name and rank under it; the whole card links to Settings.
+- **New-version notice (rail):** 1px Crimson Lo outline on a faint Crimson Deep wash, Rajdhani caps with a small crimson diamond; the diamond pulses while an update installs (no pulse under reduced motion).
+- **Settings page:** a 760px column of sections under the usual section titles: the account (Board panel, 72px avatar, Oxanium name, Steam ID) with quiet Switch account / Disconnect actions; then the version (mono), a status box (Board panel; Crimson Lo border when a new version is waiting, listing its commit messages) and the auto-install checkbox.
 
 ### Inputs / Fields
 - **Style:** the timeline is a restyled native range (see the Board); the speed is a mono value between − and + steps; the pause toggle a native checkbox with a crimson accent.

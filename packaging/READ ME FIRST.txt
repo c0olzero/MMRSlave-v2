@@ -1,0 +1,29 @@
+MMRSlave - Dota 2 replay coach
+==============================
+
+1. Unzip this whole folder somewhere you keep programs (for example Documents\MMRSlave).
+   Keep the files together: MMRSlave.exe needs the _internal folder next to it.
+2. Double-click MMRSlave.exe. It opens in its own window.
+   Windows may warn that the app is from an unknown publisher: click "More info" -> "Run anyway".
+3. Click "Sign in through Steam". You sign in on Steam's own page; MMRSlave only learns your
+   Steam ID, never your password.
+4. In Dota 2, turn on Settings -> Social -> Expose Public Match Data, or your games can't be found.
+5. Click "Fetch my latest games" and open one to review it.
+
+Updates
+-------
+Settings (the gear at the bottom left) -> Check for updates. Tick "Install updates automatically
+when MMRSlave starts" to stay up to date without thinking about it. Updates download only what
+changed. When an update needs a new full download, the app links you to it; unzip it over this
+folder and your games and settings stay.
+
+Where your data lives
+---------------------
+%LOCALAPPDATA%\MMRSlave  (settings, downloaded games, logs, updates)
+Delete that folder to start fresh.
+
+Written coaching
+----------------
+The written report needs a Claude API key. Set the ANTHROPIC_API_KEY environment variable
+(Windows: search "environment variables" -> Edit environment variables for your account),
+then reopen MMRSlave. Everything else works without it.

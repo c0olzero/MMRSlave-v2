@@ -146,12 +146,53 @@ def cmd_auto(args, s) -> None:
 
 
 def cmd_serve(args, s) -> None:
+    from mmrslave.desktop import run
+    raise SystemExit(run(window=False, port=args.port))
+
+
+def cmd_app(args, s) -> None:
+    from mmrslave.desktop import run
+    raise SystemExit(run(window=True, port=args.port))
+
+
+def cmd_server(args, s) -> None:
+    """The dashboard server itself; `serve` and `app` start and supervise it."""
     import uvicorn
 
     from mmrslave.web.server import create_app
     _refresh_game_assets(s)
-    print(f"Dashboard: http://127.0.0.1:{args.port}   (Ctrl+C to stop)")
     uvicorn.run(create_app(s), host="127.0.0.1", port=args.port, log_level="warning")
+
+
+def cmd_publish_brain(args, s) -> None:
+    """Copy your trained networks and benchmarks into the project's brain/ folder, so the next
+    commit ships them with the app and its updates."""
+    import shutil
+
+    from mmrslave.config import BRAIN_DIR, BRAIN_FILES
+    BRAIN_DIR.mkdir(exist_ok=True)
+    for name in BRAIN_FILES:
+        src = s.models_dir / name
+        if src.exists():
+            shutil.copy2(src, BRAIN_DIR / name)
+            print(f"  {name:22} {src.stat().st_size / 1e6:6.1f} MB")
+        else:
+            print(f"  {name:22} missing, skipped")
+    print(f"Copied to {BRAIN_DIR}. Commit and push it to share it with everyone's app.")
+
+
+def cmd_update(args, s) -> None:
+    from mmrslave import updater
+    info = updater.check()
+    if not info["available"]:
+        print(f"Up to date ({info['installed'].get('short') or 'unknown version'}).")
+        return
+    print(f"New version {info['latest']['short']} ({info['ahead_by'] or '?'} changes):")
+    for c in info["changes"]:
+        print(f"  {c['sha']} {c['message']}")
+    if args.check:
+        return
+    updater.install(_log)
 
 
 def _refresh_game_assets(s, force: bool = False) -> None:
@@ -313,8 +354,19 @@ def main(argv: list[str] | None = None) -> None:
 
     sub.add_parser("reparse", help="download your recent games again for the newest stats (damage, assists over time)")
 
-    p = sub.add_parser("serve", help="open the local dashboard")
+    p = sub.add_parser("app", help="open MMRSlave in its own window")
     p.add_argument("--port", type=int, default=8765)
+
+    p = sub.add_parser("serve", help="run the dashboard for your browser at http://127.0.0.1:8765")
+    p.add_argument("--port", type=int, default=8765)
+
+    p = sub.add_parser("_server")  # started by `app` / `serve`
+    p.add_argument("--port", type=int, default=8765)
+
+    sub.add_parser("publish-brain", help="copy your trained models into brain/ to ship them with the app")
+
+    p = sub.add_parser("update", help="install the newest version from GitHub")
+    p.add_argument("--check", action="store_true", help="only say whether there is one")
 
     sub.add_parser("assets", help="copy the minimap and hero icons from your Dota 2 install again")
 
@@ -328,7 +380,8 @@ def main(argv: list[str] | None = None) -> None:
     s.ensure_dirs()
     {"status": cmd_status, "collect": cmd_collect, "mine": cmd_mine, "local": cmd_local,
      "stats": cmd_stats, "train": cmd_train, "analyze": cmd_analyze, "benchmarks": cmd_benchmarks,
-     "serve": cmd_serve, "assets": cmd_assets, "auto": cmd_auto, "reparse": cmd_reparse}[args.cmd](args, s)
+     "serve": cmd_serve, "assets": cmd_assets, "auto": cmd_auto, "reparse": cmd_reparse,
+     "app": cmd_app, "_server": cmd_server, "publish-brain": cmd_publish_brain, "update": cmd_update}[args.cmd](args, s)
 
 
 if __name__ == "__main__":

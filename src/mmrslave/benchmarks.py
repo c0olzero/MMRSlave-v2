@@ -196,7 +196,7 @@ class Benchmarks:
 
     @classmethod
     def load(cls, s: Settings) -> "Benchmarks | None":
-        path = s.models_dir / "benchmarks.json"
+        path = s.model_file("benchmarks.json")
         return cls(json.loads(path.read_text(encoding="utf-8"))) if path.exists() else None
 
     def group(self, hero_id: int, pos: int) -> tuple[str, dict[str, Any]] | None:
@@ -224,7 +224,7 @@ class Benchmarks:
     def curves(self, s: Settings, hero_id: int, pos: int) -> tuple[str, dict[str, Any]] | None:
         """Immortal curves for this hero and position, or for the position when the hero has few games."""
         if self._curves is None:
-            path = s.models_dir / "benchmark_curves.json"
+            path = s.model_file("benchmark_curves.json")
             self._curves = json.loads(path.read_text(encoding="utf-8"))["groups"] if path.exists() else {}
         hero, everyone = self._curves.get(f"{hero_id}:{pos}"), self._curves.get(f"pos:{pos}")
         if not (hero and hero["n"] >= MIN_N):

@@ -1,0 +1,38 @@
+# Builds MMRSlave.exe on GitHub's Windows machines and publishes the zip as a release.
+# Trigger: push a tag like v0.2.0 (git tag v0.2.0 && git push origin v0.2.0), or run it by hand
+# from the Actions tab.
+#
+# Only needed when packaging/runtime.json's number goes up (a new library). Plain code and
+# brain/ changes reach installed apps through their own updater, straight from the main branch.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - name: Build
+        shell: pwsh
+        run: ./packaging/build.ps1
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_type == 'tag' && github.ref_name || format('build-{0}', github.run_number) }}
+          name: MMRSlave ${{ github.ref_type == 'tag' && github.ref_name || format('build {0}', github.run_number) }}
+          files: dist/MMRSlave-windows-*.zip
+          body: |
+            Download **MMRSlave-windows-….zip**, unzip it, and double-click **MMRSlave.exe**.
+            Already have MMRSlave? Unzip over your old folder; your games and settings stay.

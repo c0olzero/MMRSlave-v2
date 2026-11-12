@@ -194,7 +194,7 @@ class Collector:
     def queue_mine(self, count: int) -> int:
         """Add your most recent matches to the queue."""
         if not self.s.account_id:
-            raise SystemExit("Set player.steam_id in mmrslave.toml first.")
+            raise RuntimeError("Connect your Steam account first (or set player.steam_id in mmrslave.toml).")
         profile = self.api.get(f"/players/{self.s.account_id}") or {}
         if profile.get("rank_tier"):
             self.cat.kv_set("my_rank_tier", str(profile["rank_tier"]))

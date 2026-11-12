@@ -348,7 +348,7 @@ def load_models(s: Settings, device: str | None = None) -> tuple[WinProbNet | No
     device = device or ("cuda" if torch.cuda.is_available() else "cpu")
     out = []
     for name, cls in (("winprob.pt", WinProbNet), ("context.pt", HeroContextNet)):
-        path = s.models_dir / name
+        path = s.model_file(name)
         if not path.exists():
             out.append(None)
             continue
